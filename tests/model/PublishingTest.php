@@ -38,6 +38,7 @@ class PublishingTest extends ContentTest
 
     public function testDetachCommentary()
     {
+        $this->sut->attachCommentary($this->message);
         $this->sut->detachCommentary($this->message);
     }
 
