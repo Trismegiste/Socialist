@@ -21,4 +21,9 @@ abstract class Content implements Famous
         $this->author = $auth;
     }
 
+    public function getPublisher()
+    {
+        return $this->author;
+    }
+
 }
