@@ -11,10 +11,9 @@ use Trismegiste\Socialist\Content;
 /**
  * ContentTest tests Content
  */
-class ContentTest extends \PHPUnit_Framework_TestCase
+class ContentTest extends FamousTestTemplate
 {
 
-    protected $sut;
     protected $mockAuthor;
 
     protected function setUp()
@@ -24,15 +23,20 @@ class ContentTest extends \PHPUnit_Framework_TestCase
                 ->method('getNickname')
                 ->will($this->returnValue('ncc1701'));
 
-        $this->sut = $this->getMockBuilder('Trismegiste\Socialist\Content')
-                ->setConstructorArgs([$this->mockAuthor])
-                ->setMethods(NULL)
-                ->getMock();
+        parent::setUp();
     }
 
     public function testAuthor()
     {
         $this->assertEquals($this->mockAuthor, $this->sut->getPublisher());
+    }
+
+    protected function createSUT()
+    {
+        return $this->getMockBuilder('Trismegiste\Socialist\Content')
+                        ->setConstructorArgs([$this->mockAuthor])
+                        ->setMethods(NULL)
+                        ->getMock();
     }
 
 }

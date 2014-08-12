@@ -11,11 +11,9 @@ use Trismegiste\Socialist\User;
 /**
  * UserTest tests User
  */
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends FamousTestTemplate
 {
 
-    protected $sut;
-    protected $fan;
     protected $author;
 
     protected function setUp()
@@ -25,12 +23,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
                 ->method('getNickname')
                 ->will($this->returnValue('kirk'));
 
-        $this->fan = $this->getMock("Trismegiste\Socialist\Author");
-        $this->fan->expects($this->any())
-                ->method('getNickname')
-                ->will($this->returnValue('janice'));
-
-        $this->sut = new User($this->author);
+        parent::setUp();
     }
 
     public function testAuthor()
@@ -38,17 +31,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->author, $this->sut->getAuthor());
     }
 
-    public function testAddRemoveFan()
+    protected function createSUT()
     {
-        $this->sut->addFan($this->fan);
-        $this->assertEquals(1, $this->sut->getFanCount());
-        $this->assertTrue($this->sut->hasFan($this->fan));
-
-        $this->sut->addFan($this->fan);
-        $this->assertEquals(1, $this->sut->getFanCount());
-
-        $this->sut->removeFan($this->fan);
-        $this->assertEquals(0, $this->sut->getFanCount());
+        return new User($this->author);
     }
 
 }
