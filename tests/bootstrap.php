@@ -10,6 +10,6 @@ if (!$loader = @include __DIR__ . '/../vendor/autoload.php') {
             'php composer.phar install --dev' . PHP_EOL);
 }
 
-$loader->add('tests\\model', dirname(__DIR__));
-$loader->add('tests\\database', dirname(__DIR__));
+$loader->add('tests\\model\\', dirname(__DIR__));
+$loader->add('tests\\database\\', dirname(__DIR__));
 $loader->add('tests\\Yuurei\\', dirname(__DIR__) . '/vendor/trismegiste/yuurei/');
