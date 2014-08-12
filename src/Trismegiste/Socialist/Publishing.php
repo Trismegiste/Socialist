@@ -27,7 +27,7 @@ abstract class Publishing extends Content implements Persistable
     public function detachCommentary(Commentary $comm)
     {
         foreach ($this->commentary as $current) {
-            if ($current == $comm) {
+            if ($current === $comm) {
                 unset($this->commentary[$comm]);
                 break;
             }
