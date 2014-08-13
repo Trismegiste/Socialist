@@ -15,15 +15,20 @@ use Trismegiste\Yuurei\Facade\Provider;
 class MongoDbTestCase extends \PHPUnit_Framework_TestCase
 {
 
-    protected $invocation;
+    protected $repo;
     protected $collection;
+
+    private function createStage()
+    {
+        return new Invocation();
+    }
 
     protected function setUp()
     {
         $connector = new \tests\Yuurei\Persistence\ConnectorTest();
         $this->collection = $connector->testCollection();
         $facade = new Provider($this->collection);
-        $this->invocation = $facade->createRepository(new Invocation());
+        $this->repo = $facade->createRepository($this->createStage());
     }
 
 }

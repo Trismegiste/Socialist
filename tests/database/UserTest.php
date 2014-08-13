@@ -30,7 +30,7 @@ class UserTest extends MongoDbTestCase
     public function testCreate()
     {
         $this->collection->drop();
-        $this->invocation->persist($this->sut);
+        $this->repo->persist($this->sut);
         $pk = $this->sut->getId();
         $this->assertInstanceOf('MongoId', $pk);
 
@@ -42,7 +42,7 @@ class UserTest extends MongoDbTestCase
      */
     public function testRestore(\MongoId $pk)
     {
-        $restore = $this->invocation->findByPk((string) $pk);
+        $restore = $this->repo->findByPk((string) $pk);
         $this->sut->setId($pk);
         $this->assertEquals($this->sut, $restore);
         $this->assertEquals(3, $restore->getFanCount());
@@ -56,7 +56,7 @@ class UserTest extends MongoDbTestCase
     public function testEdit(User $obj)
     {
         $obj->addFan(new Author('scotty'));
-        $this->invocation->persist($obj);
+        $this->repo->persist($obj);
 
         return $obj->getId();
     }
@@ -66,7 +66,7 @@ class UserTest extends MongoDbTestCase
      */
     public function testRestoreEdited(\MongoId $pk)
     {
-        $restore = $this->invocation->findByPk((string) $pk);
+        $restore = $this->repo->findByPk((string) $pk);
         $this->assertEquals(4, $restore->getFanCount());
     }
 

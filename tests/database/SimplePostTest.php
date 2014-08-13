@@ -51,7 +51,7 @@ class SimplePostTest extends MongoDbTestCase
     public function testCreate()
     {
         $this->collection->drop();
-        $this->invocation->persist($this->sut);
+        $this->repo->persist($this->sut);
         $pk = $this->sut->getId();
         $this->assertInstanceOf('MongoId', $pk);
 
@@ -63,7 +63,7 @@ class SimplePostTest extends MongoDbTestCase
      */
     public function testRestore(\MongoId $pk)
     {
-        $restore = $this->invocation->findByPk((string) $pk);
+        $restore = $this->repo->findByPk((string) $pk);
         $this->sut->setId($pk);
         $this->assertEquals($this->sut, $restore);
 
