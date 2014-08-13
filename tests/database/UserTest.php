@@ -82,6 +82,18 @@ class UserTest extends MongoDbTestCase
         // adding a follower
         $restore->follow($restore); // to make sure there is a cycle
         $this->repo->persist($restore);
+
+        return $restore->getId();
+    }
+
+    /**
+     * @depends testFollowed
+     */
+    public function testFollowedPersistence(\MongoId $pk)
+    {
+        $restore = $this->repo->findByPk((string) $pk);
+
+        $this->assertTrue($restore->isFollowing($restore));
     }
 
 }
