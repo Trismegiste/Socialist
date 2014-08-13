@@ -11,6 +11,6 @@
     "require": {
         "php": ">=5.4.3",
         "ext-mongo": ">=1.3.0",
-        "trismegiste/yuurei": "master-dev"
+        "trismegiste/yuurei": "dev-master"
     }
 }
