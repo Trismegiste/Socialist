@@ -15,7 +15,12 @@ use Trismegiste\Yuurei\Persistence\PersistableImpl;
  * Like Publishing entity, this is a vertex in the social digraph.
  * It's a rich document in MongoDb
  * It's designated as a "root-entity" in Yuurei persistence layer
-
+ *
+ * Why a User wraps an Author instead of inheriting from it ?
+ * It is an optimization and future extension.
+ *  * The first goal is to avoid cyclic graph for persistence
+ *  * The second is you can have a identified Author coming from outside the app 
+ *    (coming from other networks for example)
  */
 class User implements Famous, Persistable, Follower
 {
@@ -38,6 +43,7 @@ class User implements Famous, Persistable, Follower
 
     public function getUniqueId()
     {
+        // @todo a string is perhaps a bad idea, hexadecimal could be better ?
         return (string) $this->getId();
     }
 
