@@ -25,7 +25,7 @@ class User implements Famous, Persistable
         $this->author = $author;
     }
 
-    public function getAuthorInterface()
+    public function getAuthor()
     {
         return $this->author;
     }

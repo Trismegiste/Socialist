@@ -26,9 +26,9 @@ class UserTest extends FamousTestTemplate
         parent::setUp();
     }
 
-    public function testAuthorInterface()
+    public function testAuthor()
     {
-        $this->assertEquals($this->author, $this->sut->getAuthorInterface());
+        $this->assertEquals($this->author, $this->sut->getAuthor());
     }
 
     protected function createSUT()
