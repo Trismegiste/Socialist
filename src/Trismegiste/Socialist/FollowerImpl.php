@@ -17,7 +17,7 @@ trait FollowerImpl
 
     public function follow(Follower $f)
     {
-        $this->followed[$f->getUniqueId()] = $f;
+        $this->followed[$f->getUniqueId()] = $f->getMinimalInfo();
     }
 
     public function unfollow(Follower $f)

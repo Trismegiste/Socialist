@@ -47,4 +47,16 @@ class User implements Famous, Persistable, Follower
         return (string) $this->getId();
     }
 
+    /**
+     * Gets the minimal info (the Author)
+     * 
+     * @param \Trismegiste\Socialist\Follower $f (actually a User)
+     * 
+     * @return AuthorInterface
+     */
+    public function getMinimalInfo()
+    {
+        return $this->getAuthor();
+    }
+
 }

@@ -68,6 +68,20 @@ class UserTest extends MongoDbTestCase
     {
         $restore = $this->repo->findByPk((string) $pk);
         $this->assertEquals(4, $restore->getFanCount());
+
+        return $restore->getId();
+    }
+
+    /**
+     * @depends testRestoreEdited
+     */
+    public function testFollowed(\MongoId $pk)
+    {
+        $restore = $this->repo->findByPk((string) $pk);
+
+        // adding a follower
+        $restore->follow($restore); // to make sure there is a cycle
+        $this->repo->persist($restore);
     }
 
 }

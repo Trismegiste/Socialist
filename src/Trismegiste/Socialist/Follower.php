@@ -54,4 +54,13 @@ interface Follower
      * @return int
      */
     public function getFollowerCount();
+
+    /**
+     * Returns the minimal information for a follower (optim)
+     * 
+     * @param \Trismegiste\Socialist\Follower $f
+     * 
+     * return object
+     */
+    public function getMinimalInfo();
 }
