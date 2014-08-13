@@ -13,7 +13,7 @@ trait FollowerImpl
 {
 
     protected $followed = [];
-    protected $followerCount = 0; // cached info with map-reduce
+    protected $followerCount = 0; // cached property, computed with map-reduce
 
     public function follow(Follower $f)
     {

@@ -16,7 +16,13 @@ use Trismegiste\Socialist\Commentary;
 class SimplePostTest extends MongoDbTestCase
 {
 
+    static protected $frozenTime;
     protected $sut;
+
+    public static function setupBeforeClass()
+    {
+        self::$frozenTime = new \DateTime();
+    }
 
     protected function setUp()
     {
@@ -28,6 +34,7 @@ class SimplePostTest extends MongoDbTestCase
             new Author('scotty')
         ];
         $this->sut = new SimplePost($author[0]);
+        $this->sut->setLastEdited(self::$frozenTime);
         $this->sut->setTitle("A title");
         $this->sut->setBody("main message");
 

@@ -39,4 +39,12 @@ class ContentTest extends FamousTestTemplate
                         ->getMock();
     }
 
+    public function testTimestamp()
+    {
+        $this->assertNotNull($this->sut->getLastEdited());
+        $newDate = new \DateTime('tomorrow 14:00');
+        $this->sut->setLastEdited($newDate);
+        $this->assertEquals($newDate, $this->sut->getLastEdited());
+    }
+
 }
