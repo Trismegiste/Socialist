@@ -28,7 +28,7 @@ class ContentTest extends FamousTestTemplate
 
     public function testAuthorInterface()
     {
-        $this->assertEquals($this->mockAuthorInterface, $this->sut->getPublisher());
+        $this->assertEquals($this->mockAuthorInterface, $this->sut->getAuthor());
     }
 
     protected function createSUT()

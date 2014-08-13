@@ -11,6 +11,12 @@ use Trismegiste\Yuurei\Persistence\PersistableImpl;
 
 /**
  * Publishing is a Content with Commentary and Persistance in mongoDb
+ * (here goes slug)
+ * 
+ * Like User entity, this is a vertex in the social digraph.
+ * It's a rich document in MongoDb
+ * It's designated as a "root-entity" in Yuurei persistence layer
+ * 
  */
 abstract class Publishing extends Content implements Persistable
 {

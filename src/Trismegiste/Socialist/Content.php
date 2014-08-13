@@ -7,7 +7,7 @@
 namespace Trismegiste\Socialist;
 
 /**
- * Content is a content published on the net by an AuthorInterface
+ * Content is a content posted on the net by an AuthorInterface
  */
 abstract class Content implements Famous
 {
@@ -23,7 +23,7 @@ abstract class Content implements Famous
         $this->lastEdited = new \DateTime();
     }
 
-    public function getPublisher()
+    public function getAuthor()
     {
         return $this->author;
     }
