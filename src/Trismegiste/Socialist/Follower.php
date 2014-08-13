@@ -8,12 +8,15 @@ namespace Trismegiste\Socialist;
 
 /**
  * Follower is a contract for a follower who follows other followers
+ * In other words : it's a contract for a digraph of followers
  */
 interface Follower
 {
 
     /**
-     * @todo Perhaps using the same technique in Famous interface ?
+     * Returns a unique id for this follower
+     * 
+     * @return scalar
      */
     public function getUniqueId();
 
@@ -56,9 +59,7 @@ interface Follower
     public function getFollowerCount();
 
     /**
-     * Returns the minimal information for a follower (optim)
-     * 
-     * @param \Trismegiste\Socialist\Follower $f
+     * Returns the minimal informations for a follower (optim)
      * 
      * return object
      */

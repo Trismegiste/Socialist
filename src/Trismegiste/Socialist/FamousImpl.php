@@ -16,6 +16,7 @@ trait FamousImpl
 
     public function addFan(AuthorInterface $auth)
     {
+        // @todo Perhaps using the same technique in FollowerImpl ?
         $this->fanList[$auth->getNickname()] = $auth;
     }
 
