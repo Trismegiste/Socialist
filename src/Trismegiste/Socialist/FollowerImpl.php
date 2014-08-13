@@ -13,6 +13,7 @@ trait FollowerImpl
 {
 
     protected $followed = [];
+    protected $followerCount = 0; // cached info with map-reduce
 
     public function follow(Follower $f)
     {
@@ -27,6 +28,16 @@ trait FollowerImpl
     public function isFollowing(Follower $f)
     {
         return array_key_exists($f->getUniqueId(), $this->followed);
+    }
+
+    public function getFollowedCount()
+    {
+        return count($this->followed);
+    }
+
+    public function getFollowerCount()
+    {
+        return $this->followerCount;
     }
 
 }

@@ -17,9 +17,41 @@ interface Follower
      */
     public function getUniqueId();
 
+    /**
+     * Follows one guy (idempotent)
+     * 
+     * @param \Trismegiste\Socialist\Follower $f
+     */
     public function follow(Follower $f);
 
+    /**
+     * Unfollows one guy
+     * 
+     * @param \Trismegiste\Socialist\Follower $f
+     */
     public function unfollow(Follower $f);
 
+    /**
+     * Is this guy following anoher guy
+     * 
+     * @param \Trismegiste\Socialist\Follower $f
+     * 
+     * @return boolean
+     */
     public function isFollowing(Follower $f);
+
+    /**
+     * How many other guys this guy is following ?
+     * 
+     * @return int
+     */
+    public function getFollowedCount();
+
+    /**
+     * How many followers for this guy ?
+     * (Cached with map-reduce)
+     * 
+     * @return int
+     */
+    public function getFollowerCount();
 }
