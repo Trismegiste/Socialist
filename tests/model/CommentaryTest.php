@@ -16,7 +16,7 @@ class CommentaryTest extends ContentTest
 
     protected function createSUT()
     {
-        return new Commentary($this->mockAuthor);
+        return new Commentary($this->mockAuthorInterface);
     }
 
     public function getMessage()

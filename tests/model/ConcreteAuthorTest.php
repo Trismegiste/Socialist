@@ -6,19 +6,19 @@
 
 namespace tests\model;
 
-use Trismegiste\Socialist\ConcreteAuthor;
+use Trismegiste\Socialist\Author;
 
 /**
- * ConcreteAuthorTest tests ConcreteAuthor
+ * AuthorTest tests Author
  */
-class ConcreteAuthorTest extends \PHPUnit_Framework_TestCase
+class AuthorTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $sut;
 
     protected function setUp()
     {
-        $this->sut = new ConcreteAuthor('spock');
+        $this->sut = new Author('spock');
     }
 
     public function getAvatar()

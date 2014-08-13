@@ -20,12 +20,12 @@ class User implements Famous, Persistable
 
     protected $author;
 
-    public function __construct(Author $author)
+    public function __construct(AuthorInterface $author)
     {
         $this->author = $author;
     }
 
-    public function getAuthor()
+    public function getAuthorInterface()
     {
         return $this->author;
     }

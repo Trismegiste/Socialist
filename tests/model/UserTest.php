@@ -18,7 +18,7 @@ class UserTest extends FamousTestTemplate
 
     protected function setUp()
     {
-        $this->author = $this->getMock("Trismegiste\Socialist\Author");
+        $this->author = $this->getMock("Trismegiste\Socialist\AuthorInterface");
         $this->author->expects($this->any())
                 ->method('getNickname')
                 ->will($this->returnValue('kirk'));
@@ -26,9 +26,9 @@ class UserTest extends FamousTestTemplate
         parent::setUp();
     }
 
-    public function testAuthor()
+    public function testAuthorInterface()
     {
-        $this->assertEquals($this->author, $this->sut->getAuthor());
+        $this->assertEquals($this->author, $this->sut->getAuthorInterface());
     }
 
     protected function createSUT()

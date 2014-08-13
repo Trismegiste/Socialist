@@ -7,7 +7,7 @@
 namespace tests\database;
 
 use Trismegiste\Socialist\User;
-use Trismegiste\Socialist\ConcreteAuthor;
+use Trismegiste\Socialist\Author;
 
 /**
  * UserTest tests the persistence of a User
@@ -20,11 +20,11 @@ class UserTest extends MongoDbTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->sut = new User(new ConcreteAuthor("spock"));
+        $this->sut = new User(new Author("spock"));
 
-        $this->sut->addFan(new ConcreteAuthor('chapel'));
-        $this->sut->addFan(new ConcreteAuthor('kirk'));
-        $this->sut->addFan(new ConcreteAuthor('mccoy'));
+        $this->sut->addFan(new Author('chapel'));
+        $this->sut->addFan(new Author('kirk'));
+        $this->sut->addFan(new Author('mccoy'));
     }
 
     public function testCreate()
@@ -55,7 +55,7 @@ class UserTest extends MongoDbTestCase
      */
     public function testEdit(User $obj)
     {
-        $obj->addFan(new ConcreteAuthor('scotty'));
+        $obj->addFan(new Author('scotty'));
         $this->invocation->persist($obj);
 
         return $obj->getId();

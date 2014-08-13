@@ -7,22 +7,32 @@
 namespace Trismegiste\Socialist;
 
 /**
- * Author is a contract for an author of something published on the net
+ * Author is an implementation of AuthorInterface
  */
-interface Author
+class Author implements AuthorInterface
 {
 
-    /**
-     * What is your name ?
-     * 
-     * @return string
-     */
-    public function getNickname();
+    protected $nickname; // unique
+    protected $avatar;
 
-    /**
-     * What is your look ?
-     * 
-     * @return string
-     */
-    public function getAvatar();
+    public function __construct($name)
+    {
+        $this->nickname = $name;
+    }
+
+    public function setAvatar($str)
+    {
+        $this->avatar = $str;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function getNickname()
+    {
+        return $this->nickname;
+    }
+
 }

@@ -7,7 +7,7 @@
 namespace Trismegiste\Socialist;
 
 /**
- * Content is a content published on the net by an Author
+ * Content is a content published on the net by an AuthorInterface
  */
 abstract class Content implements Famous
 {
@@ -16,7 +16,7 @@ abstract class Content implements Famous
 
     protected $author;
 
-    public function __construct(Author $auth)
+    public function __construct(AuthorInterface $auth)
     {
         $this->author = $auth;
     }

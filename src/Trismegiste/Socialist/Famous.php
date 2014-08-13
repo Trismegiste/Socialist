@@ -14,24 +14,24 @@ interface Famous
 {
 
     /**
-     * How many Authors like this ?
+     * How many AuthorInterfaces like this ?
      * 
      * @return int
      */
     public function getFanCount();
 
     /**
-     * Is an Author in the list of fan ?
+     * Is an AuthorInterface in the list of fan ?
      */
-    public function hasFan(Author $auth);
+    public function hasFan(AuthorInterface $auth);
 
     /**
-     * Delete an Author from the list of fan
+     * Delete an AuthorInterface from the list of fan
      */
-    public function removeFan(Author $auth);
+    public function removeFan(AuthorInterface $auth);
 
     /**
-     * Add an Author to the list
+     * Add an AuthorInterface to the list
      */
-    public function addFan(Author $auth);
+    public function addFan(AuthorInterface $auth);
 }

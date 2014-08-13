@@ -10,7 +10,7 @@ use Trismegiste\Yuurei\Persistence\Persistable;
 use Trismegiste\Yuurei\Persistence\PersistableImpl;
 
 /**
- * Publishing is a Content with Persistance in mongoDb
+ * Publishing is a Content with Commentary and Persistance in mongoDb
  */
 abstract class Publishing extends Content implements Persistable
 {

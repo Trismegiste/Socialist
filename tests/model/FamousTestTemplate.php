@@ -20,7 +20,7 @@ abstract class FamousTestTemplate extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
 
-        $this->fan = $this->getMock("Trismegiste\Socialist\Author");
+        $this->fan = $this->getMock("Trismegiste\Socialist\AuthorInterface");
         $this->fan->expects($this->any())
                 ->method('getNickname')
                 ->will($this->returnValue('janice'));

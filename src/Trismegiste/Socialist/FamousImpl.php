@@ -14,7 +14,7 @@ trait FamousImpl
 
     protected $fanList = [];
 
-    public function addFan(Author $auth)
+    public function addFan(AuthorInterface $auth)
     {
         $this->fanList[$auth->getNickname()] = $auth;
     }
@@ -24,12 +24,12 @@ trait FamousImpl
         return count($this->fanList);
     }
 
-    public function hasFan(Author $auth)
+    public function hasFan(AuthorInterface $auth)
     {
         return array_key_exists($auth->getNickname(), $this->fanList);
     }
 
-    public function removeFan(Author $auth)
+    public function removeFan(AuthorInterface $auth)
     {
         unset($this->fanList[$auth->getNickname()]);
     }

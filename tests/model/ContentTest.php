@@ -14,27 +14,27 @@ use Trismegiste\Socialist\Content;
 class ContentTest extends FamousTestTemplate
 {
 
-    protected $mockAuthor;
+    protected $mockAuthorInterface;
 
     protected function setUp()
     {
-        $this->mockAuthor = $this->getMock('Trismegiste\Socialist\Author');
-        $this->mockAuthor->expects($this->any())
+        $this->mockAuthorInterface = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $this->mockAuthorInterface->expects($this->any())
                 ->method('getNickname')
                 ->will($this->returnValue('ncc1701'));
 
         parent::setUp();
     }
 
-    public function testAuthor()
+    public function testAuthorInterface()
     {
-        $this->assertEquals($this->mockAuthor, $this->sut->getPublisher());
+        $this->assertEquals($this->mockAuthorInterface, $this->sut->getPublisher());
     }
 
     protected function createSUT()
     {
         return $this->getMockBuilder('Trismegiste\Socialist\Content')
-                        ->setConstructorArgs([$this->mockAuthor])
+                        ->setConstructorArgs([$this->mockAuthorInterface])
                         ->setMethods(NULL)
                         ->getMock();
     }

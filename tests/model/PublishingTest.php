@@ -26,7 +26,7 @@ class PublishingTest extends ContentTest
     protected function createSUT()
     {
         return $this->getMockBuilder('Trismegiste\Socialist\Publishing')
-                        ->setConstructorArgs([$this->mockAuthor])
+                        ->setConstructorArgs([$this->mockAuthorInterface])
                         ->setMethods(NULL)
                         ->getMock();
     }
