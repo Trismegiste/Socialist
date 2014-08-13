@@ -12,11 +12,12 @@ use Trismegiste\Yuurei\Persistence\PersistableImpl;
 /**
  * User is a user on the net and stored in MongoDb
  */
-class User implements Famous, Persistable
+class User implements Famous, Persistable, Follower
 {
 
     use FamousImpl,
-        PersistableImpl;
+        PersistableImpl,
+        FollowerImpl;
 
     protected $author;
 
@@ -28,6 +29,11 @@ class User implements Famous, Persistable
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    public function getUniqueId()
+    {
+        return (string) $this->getId();
     }
 
 }
