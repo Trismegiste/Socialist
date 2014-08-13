@@ -79,6 +79,8 @@ class UserTest extends MongoDbTestCase
     {
         $restore = $this->repo->findByPk((string) $pk);
 
+        $this->assertFalse($restore->isFollowing($restore));
+
         // adding a follower
         $restore->follow($restore); // to make sure there is a cycle
         $this->repo->persist($restore);

@@ -6,8 +6,8 @@
 
 namespace tests\database;
 
-use Trismegiste\Yuurei\Transform\Delegation\Stage\Invocation;
 use Trismegiste\Yuurei\Facade\Provider;
+use Trismegiste\DokudokiBundle\Transform\Delegation\Stage\WhiteMagic;
 
 /**
  * MongoDb_TestCase is a temmplate for Persistence with Yuurei
@@ -20,7 +20,12 @@ class MongoDbTestCase extends \PHPUnit_Framework_TestCase
 
     private function createStage()
     {
-        return new Invocation();
+        return new WhiteMagic([
+            'post' => 'Trismegiste\Socialist\SimplePost',
+            'user' => 'Trismegiste\Socialist\User',
+            'author' => 'Trismegiste\Socialist\Author',
+            'comm' => 'Trismegiste\Socialist\Commentary'
+        ]);
     }
 
     protected function setUp()

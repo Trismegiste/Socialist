@@ -17,7 +17,7 @@ Features :
 * SOLID
 
 ## How 
-It uses [Yuurei][1] for persistence.
+It uses [DokudokiBundle][1] for persistence.
 
 
-[1]: https://github.com/Trismegiste/Yuurei
+[1]: https://github.com/Trismegiste/DokudokiBundle
