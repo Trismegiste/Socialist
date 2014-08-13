@@ -79,4 +79,9 @@ class UserTest extends FamousTestTemplate
         $this->assertEquals(0, $this->sut->getFollowedCount());
     }
 
+    public function testMapReducedDataForCC()
+    {
+        $this->sut->getFollowerCount();
+    }
+
 }
