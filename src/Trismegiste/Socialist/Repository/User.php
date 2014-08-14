@@ -6,36 +6,19 @@
 
 namespace Trismegiste\Socialist\Repository;
 
-use Trismegiste\Yuurei\Persistence\Decorator;
+use Trismegiste\Yuurei\Persistence\RepositoryInterface;
+use Trismegiste\DokudokiBundle\Persistence\OneClassDecorator;
 use Trismegiste\DokudokiBundle\Transform\Mediator\Colleague\MapAlias;
 
 /**
  * User a repository for User
  */
-class User extends Decorator
+class User extends OneClassDecorator
 {
 
-    const FQCN = 'Trismegiste\Socialist\User';
-
-    public function find(array $query = array())
+    public function __construct(RepositoryInterface $wrapped)
     {
-        $query[MapAlias::CLASS_KEY] = self::FQCN;
-
-        return $this->decorated->find($query);
-    }
-
-    public function findOne(array $query = array())
-    {
-        $query[MapAlias::CLASS_KEY] = self::FQCN;
-
-        return $this->decorated->findOne($query);
-    }
-
-    public function getCursor(array $query = array(), array $fields = array())
-    {
-        $query[MapAlias::CLASS_KEY] = self::FQCN;
-
-        return $this->decorated->getCursor($query, $fields);
+        parent::__construct($wrapped, MapAlias::CLASS_KEY, 'Trismegiste\Socialist\User');
     }
 
 }

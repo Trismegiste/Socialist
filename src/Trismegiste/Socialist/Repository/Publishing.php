@@ -6,36 +6,19 @@
 
 namespace Trismegiste\Socialist\Repository;
 
-use Trismegiste\Yuurei\Persistence\Decorator;
+use Trismegiste\Yuurei\Persistence\RepositoryInterface;
+use Trismegiste\DokudokiBundle\Persistence\MultipleClassDecorator;
 use Trismegiste\DokudokiBundle\Transform\Mediator\Colleague\MapAlias;
 
 /**
  * Publishing is a repository for Publishing content and its subclasses
  */
-class Publishing extends Decorator
+class Publishing extends MultipleClassDecorator
 {
 
-    protected $subclasses = ['Trismegiste\Socialist\SimplePost'];
-
-    public function find(array $query = array())
+    public function __construct(RepositoryInterface $wrapped)
     {
-        $query[MapAlias::CLASS_KEY] = ['$in' => $this->subclasses];
-
-        return $this->decorated->find($query);
-    }
-
-    public function findOne(array $query = array())
-    {
-        $query[MapAlias::CLASS_KEY] = ['$in' => $this->subclasses];
-
-        return $this->decorated->findOne($query);
-    }
-
-    public function getCursor(array $query = array(), array $fields = array())
-    {
-        $query[MapAlias::CLASS_KEY] = ['$in' => $this->subclasses];
-
-        return $this->decorated->getCursor($query, $fields);
+        parent::__construct($wrapped, MapAlias::CLASS_KEY, ['Trismegiste\Socialist\SimplePost']);
     }
 
 }
