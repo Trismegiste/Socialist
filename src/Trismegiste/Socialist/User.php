@@ -50,8 +50,6 @@ class User implements Famous, Persistable, Follower
     /**
      * Gets the minimal info (the Author)
      * 
-     * @param \Trismegiste\Socialist\Follower $f (actually a User)
-     * 
      * @return AuthorInterface
      */
     public function getMinimalInfo()
