@@ -11,7 +11,6 @@ use Trismegiste\Yuurei\Persistence\PersistableImpl;
 
 /**
  * Publishing is a Content with Commentary and Persistance in mongoDb
- * (here goes slug)
  * 
  * Like User entity, this is a vertex in the social digraph.
  * It's a rich document in MongoDb
@@ -24,6 +23,7 @@ abstract class Publishing extends Content implements Persistable
     use PersistableImpl;
 
     protected $commentary = [];
+    protected $slug;
 
     public function attachCommentary(Commentary $comm)
     {
@@ -38,6 +38,11 @@ abstract class Publishing extends Content implements Persistable
                 break;
             }
         }
+    }
+
+    public function getCommentary()
+    {
+        return $this->commentary;
     }
 
 }
