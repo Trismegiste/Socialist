@@ -16,31 +16,22 @@ use Trismegiste\Socialist\Commentary;
 class SimplePostTest extends MongoDbTestCase
 {
 
-    static protected $frozenTime;
-    protected $sut;
+    static protected $frozenSut;
 
     public static function setupBeforeClass()
     {
-        self::$frozenTime = new \DateTime();
-    }
-
-    protected function setUp()
-    {
-        parent::setUp();
-
         $author = [
             new Author('spock'),
             new Author('kirk'),
             new Author('scotty')
         ];
-        $this->sut = new SimplePost($author[0]);
-        $this->sut->setLastEdited(self::$frozenTime);
-        $this->sut->setTitle("A title");
-        $this->sut->setBody("main message");
+        $sut = new SimplePost($author[0]);
+        $sut->setTitle("A title");
+        $sut->setBody("main message");
 
         // adding 'like' to the post
         foreach ($author as $a) {
-            $this->sut->addFan($a);
+            $sut->addFan($a);
         }
 
         // adding comments to the post
@@ -51,8 +42,16 @@ class SimplePostTest extends MongoDbTestCase
             foreach ($author as $c) {
                 $comm->addFan($c);
             }
-            $this->sut->attachCommentary($comm);
+            $sut->attachCommentary($comm);
         }
+
+        self::$frozenSut = $sut;
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->sut = self::$frozenSut;
     }
 
     public function testCreate()
@@ -71,7 +70,6 @@ class SimplePostTest extends MongoDbTestCase
     public function testRestore(\MongoId $pk)
     {
         $restore = $this->repo->findByPk((string) $pk);
-        $this->sut->setId($pk);
         $this->assertEquals($this->sut, $restore);
 
         return $restore;

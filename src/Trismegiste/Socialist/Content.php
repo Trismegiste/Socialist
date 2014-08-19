@@ -16,12 +16,14 @@ abstract class Content implements Famous, AbusiveReport
 
     protected $author;
     protected $lastEdited;
+    protected $createdAt;
 
     // array of Author for abusive content goes here
 
     public function __construct(AuthorInterface $auth)
     {
         $this->author = $auth;
+        $this->createdAt = new \DateTime();
         $this->lastEdited = new \DateTime();
     }
 
@@ -35,9 +37,24 @@ abstract class Content implements Famous, AbusiveReport
         $this->lastEdited = $d;
     }
 
+    /**
+     * returns last edit date
+     * 
+     * @return \DateTime
+     */
     public function getLastEdited()
     {
         return $this->lastEdited;
+    }
+
+    /**
+     * returns date of creation for this entity
+     * 
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 
 }

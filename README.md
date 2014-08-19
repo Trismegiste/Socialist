@@ -1,10 +1,6 @@
 # Socialist [![Build Status](https://travis-ci.org/Trismegiste/Socialist.svg?branch=master)](https://travis-ci.org/Trismegiste/Socialist)
 Core library for social networking
 
-
-# DokudokiBundle 
-
-
 **-- Work in progress --**
 
 ## What

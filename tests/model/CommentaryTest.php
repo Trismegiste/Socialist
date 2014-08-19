@@ -34,4 +34,9 @@ class CommentaryTest extends ContentTest
         $this->assertNotEquals('sghsjgcsg', $this->sut->getMessage());
     }
 
+    public function testUuid()
+    {
+        $this->assertRegExp('#^[\da-f]{40}$#', $this->sut->getUuid());
+    }
+
 }

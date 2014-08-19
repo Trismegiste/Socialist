@@ -47,4 +47,10 @@ class ContentTest extends FamousTestTemplate
         $this->assertEquals($newDate, $this->sut->getLastEdited());
     }
 
+    public function testCreationDate()
+    {
+        $this->assertNotNull($this->sut->getCreatedAt());
+        $this->assertGreaterThanOrEqual($this->sut->getCreatedAt()->getTimestamp(), time());
+    }
+
 }
