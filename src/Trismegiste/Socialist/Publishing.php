@@ -45,4 +45,22 @@ abstract class Publishing extends Content implements Persistable
         return $this->commentary;
     }
 
+    /**
+     * Gets a commentary by its Uuid
+     * 
+     * @param type $uuid
+     * 
+     * @return Commentary|null
+     */
+    public function getCommentaryByUuid($uuid)
+    {
+        foreach ($this->commentary as $comm) {
+            if ($comm->getUuid() === $uuid) {
+                return $comm;
+            }
+        }
+
+        return null;
+    }
+
 }
