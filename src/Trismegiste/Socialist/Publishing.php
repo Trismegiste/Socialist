@@ -25,11 +25,21 @@ abstract class Publishing extends Content implements Persistable
     protected $commentary = [];
     protected $slug;
 
+    /**
+     * Attach a commentary to this Published content
+     * 
+     * @param \Trismegiste\Socialist\Commentary $comm
+     */
     public function attachCommentary(Commentary $comm)
     {
         $this->commentary[] = $comm;
     }
 
+    /**
+     * Detach a commentary off this Published content
+     * 
+     * @param \Trismegiste\Socialist\Commentary $comm
+     */
     public function detachCommentary(Commentary $comm)
     {
         foreach ($this->commentary as $idx => $current) {
@@ -40,17 +50,22 @@ abstract class Publishing extends Content implements Persistable
         }
     }
 
+    /**
+     * Returns the list of commmentaries for this object
+     * 
+     * @return array
+     */
     public function getCommentary()
     {
         return $this->commentary;
     }
 
     /**
-     * Gets a commentary by its Uuid
+     * Gets a commentary by its Unique Id
      * 
      * @param type $uuid
      * 
-     * @return Commentary|null
+     * @return Commentary|null null if no commentary found
      */
     public function getCommentaryByUuid($uuid)
     {

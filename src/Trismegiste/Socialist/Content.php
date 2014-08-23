@@ -27,6 +27,11 @@ abstract class Content implements Famous, AbusiveReport
         $this->lastEdited = new \DateTime();
     }
 
+    /**
+     * Returns the author of this object
+     * 
+     * @return AuthorInterface
+     */
     public function getAuthor()
     {
         return $this->author;
