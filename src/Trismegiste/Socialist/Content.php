@@ -37,13 +37,18 @@ abstract class Content implements Famous, AbusiveReport
         return $this->author;
     }
 
+    /**
+     * Set the timestamp for the last edit of this object
+     * 
+     * @param \DateTime $d
+     */
     public function setLastEdited(\DateTime $d)
     {
         $this->lastEdited = $d;
     }
 
     /**
-     * returns last edit date
+     * Returns last edit date
      * 
      * @return \DateTime
      */

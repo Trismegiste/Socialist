@@ -41,6 +41,9 @@ class User implements Famous, Persistable, Follower
         return $this->author;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUniqueId()
     {
         // @todo a string is perhaps a bad idea, hexadecimal could be better ?
