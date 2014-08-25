@@ -18,7 +18,7 @@ Features :
 See the last class hierarchy generated with [phpDocumentor][3].
 
 Here is a quick overview :
-![Model](https://github.com/Trismegiste/Socialist/tree/master/doc/model.png)
+![Model](/doc/model.png)
 
 ## How 
 It relies on [Yuurei][1] for persistence. It is fully documented with phpDocumentor and
