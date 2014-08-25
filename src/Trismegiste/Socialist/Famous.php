@@ -14,24 +14,32 @@ interface Famous
 {
 
     /**
-     * How many AuthorInterfaces like this ?
+     * How many author like this ?
      * 
      * @return int
      */
     public function getFanCount();
 
     /**
-     * Is an AuthorInterface in the list of fan ?
+     * Is an author in the list of fan ?
+     *
+     * @param \Trismegiste\Socialist\AuthorInterface $auth
+     * 
+     * @return boolean if the fan is in the list
      */
     public function hasFan(AuthorInterface $auth);
 
     /**
-     * Delete an AuthorInterface from the list of fan
+     * Delete an author from the list of fan
+     *
+     * @param \Trismegiste\Socialist\AuthorInterface $auth
      */
     public function removeFan(AuthorInterface $auth);
 
     /**
-     * Add an AuthorInterface to the list
+     * Add an author to the list
+     * 
+     * @param \Trismegiste\Socialist\AuthorInterface $auth
      */
     public function addFan(AuthorInterface $auth);
 }

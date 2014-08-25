@@ -20,6 +20,11 @@ abstract class Content implements Famous, AbusiveReport
 
     // array of Author for abusive content goes here
 
+    /**
+     * Ctor
+     * 
+     * @param \Trismegiste\Socialist\AuthorInterface $auth the author of this content
+     */
     public function __construct(AuthorInterface $auth)
     {
         $this->author = $auth;

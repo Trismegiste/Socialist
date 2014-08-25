@@ -25,4 +25,11 @@ interface AuthorInterface
      * @return string
      */
     public function getAvatar();
+
+    /**
+     * Sets the avatar. Could be anything from a file name to a unique id in mongodb
+     * 
+     * @param string $str an unique identifier for this avatar
+     */
+    public function setAvatar($str);
 }

@@ -22,7 +22,17 @@ abstract class Publishing extends Content implements Persistable
 
     use PersistableImpl;
 
+    /**
+     * An unsorted list of Commentary
+     * @var array
+     */
     protected $commentary = [];
+
+    /**
+     * A slug for this content
+     * 
+     * @var string
+     */
     protected $slug;
 
     /**

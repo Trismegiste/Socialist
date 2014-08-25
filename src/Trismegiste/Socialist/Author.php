@@ -15,21 +15,35 @@ class Author implements AuthorInterface
     protected $nickname; // unique
     protected $avatar;
 
+    /**
+     * Ctor
+     * 
+     * @param string $name the uniique name for this author
+     */
     public function __construct($name)
     {
         $this->nickname = $name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setAvatar($str)
     {
         $this->avatar = $str;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getAvatar()
     {
         return $this->avatar;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getNickname()
     {
         return $this->nickname;

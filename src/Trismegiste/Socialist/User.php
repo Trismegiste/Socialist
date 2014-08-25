@@ -31,11 +31,21 @@ class User implements Famous, Persistable, Follower
 
     protected $author;
 
+    /**
+     * Ctor
+     * 
+     * @param \Trismegiste\Socialist\AuthorInterface $author the author embedded in the User
+     */
     public function __construct(AuthorInterface $author)
     {
         $this->author = $author;
     }
 
+    /**
+     * Returns the author in the User
+     * 
+     * @return \Trismegiste\Socialist\AuthorInterface the author
+     */
     public function getAuthor()
     {
         return $this->author;
