@@ -42,7 +42,7 @@ abstract class Publishing extends Content implements Persistable
      */
     public function attachCommentary(Commentary $comm)
     {
-        $this->commentary[] = $comm;
+        array_unshift($this->commentary, $comm);
     }
 
     /**
