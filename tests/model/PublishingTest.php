@@ -67,4 +67,27 @@ class PublishingTest extends ContentTest
         $this->assertEquals($this->message, $comments[1]);
     }
 
+    public function testGetByUuid()
+    {
+        $this->message->expects($this->once())
+                ->method('getUuid')
+                ->will($this->returnValue(666));
+
+        $this->sut->attachCommentary($this->message);
+        $found = $this->sut->getCommentaryByUuid(666);
+
+        $this->assertEquals($this->message, $found);
+    }
+
+    public function testGetByUuidNotFound()
+    {
+        $this->message->expects($this->once())
+                ->method('getUuid')
+                ->will($this->returnValue(666));
+
+        $this->sut->attachCommentary($this->message);
+
+        $this->assertNull($this->sut->getCommentaryByUuid(111));
+    }
+
 }
