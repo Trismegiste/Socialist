@@ -14,7 +14,7 @@ abstract class Content implements Famous, AbusiveReport
 
     use FamousImpl;
 
-    protected $author;
+    protected $owner;
     protected $lastEdited;
     protected $createdAt;
 
@@ -27,7 +27,7 @@ abstract class Content implements Famous, AbusiveReport
      */
     public function __construct(AuthorInterface $auth)
     {
-        $this->author = $auth;
+        $this->owner = $auth;
         $this->createdAt = new \DateTime();
         $this->lastEdited = new \DateTime();
     }
@@ -39,7 +39,7 @@ abstract class Content implements Famous, AbusiveReport
      */
     public function getAuthor()
     {
-        return $this->author;
+        return $this->owner;
     }
 
     /**
