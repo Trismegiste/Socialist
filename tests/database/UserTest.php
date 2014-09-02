@@ -79,10 +79,11 @@ class UserTest extends MongoDbTestCase
     {
         $restore = $this->repo->findByPk((string) $pk);
 
-        $this->assertFalse($restore->isFollowing($restore));
-
         // adding a follower
-        $restore->follow($restore); // to make sure there is a cycle
+        $guy = new User(new Author("pike"));
+        $this->repo->persist($guy);
+        $guy->follow($restore);
+        $restore->follow($guy); // to make sure there is a cycle
         $this->repo->persist($restore);
 
         return $restore->getId();
@@ -95,7 +96,10 @@ class UserTest extends MongoDbTestCase
     {
         $restore = $this->repo->findByPk((string) $pk);
 
-        $this->assertTrue($restore->isFollowing($restore));
+        $this->assertEquals(1, $restore->getFollowingCount());
+        $this->assertEquals(1, $restore->getFollowerCount());
+        $this->assertCount(1, $restore->getFriendIterator());
+        $this->assertEquals('pike', $restore->getFriendIterator()->current()->getNickname());
     }
 
 }

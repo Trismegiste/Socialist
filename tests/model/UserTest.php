@@ -113,4 +113,42 @@ class UserTest extends FamousTestTemplate
         $this->assertCount(0, $this->sut->getFollowingIterator());
     }
 
+    public function testFriend()
+    {
+        $user = $this->getListUser();
+        foreach ($user as $v) {
+            $v->follow($this->sut);
+        }
+        $this->assertCount(3, $this->sut->getFollowerIterator());
+        $this->assertCount(0, $this->sut->getFriendIterator());
+
+        $this->sut->follow($user[0]);
+        $this->assertCount(1, $this->sut->getFriendIterator());
+        $this->sut->unfollow($user[0]);
+        $this->assertCount(0, $this->sut->getFriendIterator());
+    }
+
+    public function testClique()
+    {
+        $user = $this->getListUser();
+        $user[] = $this->sut;
+
+        foreach ($user as $s) {
+            foreach ($user as $t) {
+                $s->follow($t);
+            }
+        }
+
+        foreach ($user as $v) {
+            $this->assertCount(3, $v->getFriendIterator());
+        }
+    }
+
+    public function testNotFollowHimself()
+    {
+        $this->sut->follow($this->sut);
+        $this->assertEquals(0, $this->sut->getFollowingCount());
+        $this->assertEquals(0, $this->sut->getFollowerCount());
+    }
+
 }
