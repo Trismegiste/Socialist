@@ -57,4 +57,14 @@ trait FamousImpl
         unset($this->fanList[$auth->getNickname()]);
     }
 
+    /**
+     * Returns an iterator on fans
+     * 
+     * @return \ArrayIterator
+     */
+    public function getFanIterator()
+    {
+        return new \ArrayIterator($this->fanList);
+    }
+
 }

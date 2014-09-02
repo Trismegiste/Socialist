@@ -42,4 +42,11 @@ interface Famous
      * @param \Trismegiste\Socialist\AuthorInterface $auth
      */
     public function addFan(AuthorInterface $auth);
+
+    /**
+     * Returns an iterator on fans
+     * 
+     * @return \ArrayIterator
+     */
+    public function getFanIterator();
 }

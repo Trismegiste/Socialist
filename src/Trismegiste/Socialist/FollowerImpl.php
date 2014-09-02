@@ -13,17 +13,16 @@ trait FollowerImpl
 {
 
     /**
-     * List of follower
-     * 
+     * List of following
      * @var array
      */
-    protected $followed = [];
+    protected $following = [];
 
     /**
-     * Cached property, computed with map-reduce
-     * @var int 
+     * List of followers
+     * @var arrat
      */
-    protected $followerCount = 0;
+    protected $follower = [];
 
     /**
      * Follows one guy (idempotent)
@@ -32,7 +31,8 @@ trait FollowerImpl
      */
     public function follow(Follower $f)
     {
-        $this->followed[$f->getUniqueId()] = $f->getMinimalInfo();
+        $this->following[$f->getUniqueId()] = $f->getMinimalInfo();
+        $f->follower[$this->getUniqueId()] = $this->getMinimalInfo();
     }
 
     /**
@@ -42,7 +42,8 @@ trait FollowerImpl
      */
     public function unfollow(Follower $f)
     {
-        unset($this->followed[$f->getUniqueId()]);
+        unset($this->following[$f->getUniqueId()]);
+        unset($f->follower[$this->getUniqueId()]);
     }
 
     /**
@@ -54,7 +55,7 @@ trait FollowerImpl
      */
     public function isFollowing(Follower $f)
     {
-        return array_key_exists($f->getUniqueId(), $this->followed);
+        return array_key_exists($f->getUniqueId(), $this->following);
     }
 
     /**
@@ -62,20 +63,19 @@ trait FollowerImpl
      * 
      * @return int
      */
-    public function getFollowedCount()
+    public function getFollowingCount()
     {
-        return count($this->followed);
+        return count($this->following);
     }
 
     /**
      * How many followers for this guy ?
-     * (Cached with map-reduce)
      * 
      * @return int
      */
     public function getFollowerCount()
     {
-        return $this->followerCount;
+        return count($this->follower);
     }
 
 }

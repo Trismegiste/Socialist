@@ -41,4 +41,15 @@ abstract class FamousTestTemplate extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $this->sut->getFanCount());
     }
 
+    public function testIterator()
+    {
+        $this->sut->addFan($this->fan);
+        $this->assertEquals(1, $this->sut->getFanCount());
+        $this->assertTrue($this->sut->hasFan($this->fan));
+
+        $it = $this->sut->getFanIterator();
+        $first = $it->current();
+        $this->assertEquals($this->fan, $first);
+    }
+
 }

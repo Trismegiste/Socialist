@@ -48,11 +48,10 @@ interface Follower
      * 
      * @return int
      */
-    public function getFollowedCount();
+    public function getFollowingCount();
 
     /**
      * How many followers for this guy ?
-     * (Cached with map-reduce)
      * 
      * @return int
      */
