@@ -24,6 +24,8 @@ class FollowerImplTest extends \PHPUnit_Framework_TestCase
 CODE;
         eval($code);
         $concrete = new \Trismegiste\Socialist\ConcreteFollower();
+
+        $this->assertCount(count(get_class_methods('Trismegiste\Socialist\Follower')), get_class_methods($concrete));
     }
 
 }

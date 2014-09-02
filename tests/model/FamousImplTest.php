@@ -20,6 +20,8 @@ class FamousImplTest extends \PHPUnit_Framework_TestCase
 CODE;
         eval($code);
         $concrete = new \Trismegiste\Socialist\ConcreteFamous();
+
+        $this->assertCount(count(get_class_methods('Trismegiste\Socialist\Famous')), get_class_methods($concrete));
     }
 
 }
