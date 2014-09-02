@@ -103,4 +103,14 @@ class UserTest extends FamousTestTemplate
         $this->assertEquals(0, $this->sut->getFollowingCount());
     }
 
+    public function testFollowerIterator()
+    {
+        foreach ($this->getListUser() as $v) {
+            $v->follow($this->sut);
+        }
+        $this->assertCount(3, $this->sut->getFollowerIterator());
+        // just checking
+        $this->assertCount(0, $this->sut->getFollowingIterator());
+    }
+
 }
