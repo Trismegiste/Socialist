@@ -31,8 +31,10 @@ trait FollowerImpl
      */
     public function follow(Follower $f)
     {
-        $this->following[$f->getUniqueId()] = $f->getMinimalInfo();
-        $f->follower[$this->getUniqueId()] = $this->getMinimalInfo();
+        if ($f !== $this) {
+            $this->following[$f->getUniqueId()] = $f->getMinimalInfo();
+            $f->follower[$this->getUniqueId()] = $this->getMinimalInfo();
+        }
     }
 
     /**
@@ -96,6 +98,20 @@ trait FollowerImpl
     public function getFollowingIterator()
     {
         return new \ArrayIterator($this->following);
+    }
+
+    /**
+     * Get an iterator on friend's list
+     * WARNING: Not optimized.
+     * Could be cached but must be updated for each follow()/unfollow() (for both vertices)
+     * 
+     * @return \ArrayIterator
+     */
+    public function getFriendIterator()
+    {
+        $tmp = array_intersect_key($this->follower, $this->following);
+
+        return new \ArrayIterator($tmp);
     }
 
 }

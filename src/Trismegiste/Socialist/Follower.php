@@ -77,4 +77,11 @@ interface Follower
      * @return \ArrayIterator
      */
     public function getFollowingIterator();
+
+    /**
+     * Get an iterator on friend's list
+     * 
+     * @return \ArrayIterator
+     */
+    public function getFriendIterator();
 }
