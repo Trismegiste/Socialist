@@ -99,6 +99,8 @@ class UserTest extends FamousTestTemplate
             $v->follow($this->sut);
         }
         $this->assertEquals(3, $this->sut->getFollowerCount());
+        // just checking
+        $this->assertEquals(0, $this->sut->getFollowingCount());
     }
 
 }

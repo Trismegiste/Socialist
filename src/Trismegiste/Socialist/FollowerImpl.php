@@ -78,4 +78,24 @@ trait FollowerImpl
         return count($this->follower);
     }
 
+    /**
+     * Get an iterator on follower's list
+     * 
+     * @return \ArrayIterator
+     */
+    public function getFollowerIterator()
+    {
+        return new \ArrayIterator($this->follower);
+    }
+
+    /**
+     * Get an iterator on following's list
+     * 
+     * @return \ArrayIterator
+     */
+    public function getFollowingIterator()
+    {
+        return new \ArrayIterator($this->following);
+    }
+
 }

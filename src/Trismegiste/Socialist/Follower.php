@@ -63,4 +63,18 @@ interface Follower
      * return object
      */
     public function getMinimalInfo();
+
+    /**
+     * Get an iterator on follower's list
+     * 
+     * @return \ArrayIterator
+     */
+    public function getFollowerIterator();
+
+    /**
+     * Get an iterator on following's list
+     * 
+     * @return \ArrayIterator
+     */
+    public function getFollowingIterator();
 }
