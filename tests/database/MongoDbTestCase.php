@@ -15,7 +15,10 @@ use Trismegiste\DokudokiBundle\Transform\Delegation\Stage\WhiteMagic;
 class MongoDbTestCase extends \PHPUnit_Framework_TestCase
 {
 
+    /** @var \Trismegiste\Yuurei\Persistence\RepositoryInterface */
     protected $repo;
+
+    /** @var MongoCollection */
     protected $collection;
 
     private function createStage()

@@ -67,22 +67,53 @@ abstract class PublishingTestCase extends MongoDbTestCase
         return $pk;
     }
 
+    protected function assertChildren(Publishing $restore)
+    {
+        $this->assertCount(3, $restore->getCommentaryIterator());
+        $this->assertEquals(3, $restore->getFanCount());
+
+        $comm = iterator_to_array($restore->getCommentaryIterator());
+        // checking commentary and sort
+        $this->assertRegexp('#scotty#', $comm[0]->getMessage());
+        $this->assertRegexp('#kirk#', $comm[1]->getMessage());
+        $this->assertRegexp('#spock#', $comm[2]->getMessage());
+    }
+
     /**
      * @depends testCreate
      */
     public function testRestore(\MongoId $pk)
     {
         $restore = $this->repo->findByPk((string) $pk);
-        $this->assertCount(3, $restore->getCommentaryIterator());
-        $comm = iterator_to_array($restore->getCommentaryIterator());
-        // checking commentary
-        $this->assertRegexp('#scotty#', $comm[0]->getMessage());
-        $this->assertRegexp('#kirk#', $comm[1]->getMessage());
-        $this->assertRegexp('#spock#', $comm[2]->getMessage());
 
+        $this->assertChildren($restore);
         $this->assertRootEquals($restore);
 
         return $restore;
+    }
+
+    /**
+     * @depends testRestore
+     */
+    public function testUpdate(Publishing $restore)
+    {
+        $this->repo->persist($restore);
+
+        $this->assertChildren($restore);
+        $this->assertRootEquals($restore);
+
+        return $restore->getId();
+    }
+
+    /**
+     * @depends testUpdate
+     */
+    public function testRestoreAfterUpdate(\MongoId $pk)
+    {
+        $restore = $this->repo->findByPk((string) $pk);
+
+        $this->assertChildren($restore);
+        $this->assertRootEquals($restore);
     }
 
 }

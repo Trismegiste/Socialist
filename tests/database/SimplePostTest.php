@@ -8,6 +8,7 @@ namespace tests\database;
 
 use Trismegiste\Socialist\SimplePost;
 use Trismegiste\Socialist\Author;
+use Trismegiste\Socialist\Publishing;
 
 /**
  * SimplePostTest tests SimplePost persistence with all embeded entities
@@ -24,7 +25,7 @@ class SimplePostTest extends PublishingTestCase
         return $sut;
     }
 
-    protected function assertRootEquals(\Trismegiste\Socialist\Publishing $doc)
+    protected function assertRootEquals(Publishing $doc)
     {
         $this->assertEquals('A title', $doc->getTitle());
         $this->assertEquals('main message', $doc->getBody());
