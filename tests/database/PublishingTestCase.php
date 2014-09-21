@@ -17,7 +17,7 @@ use Trismegiste\Socialist\Publishing;
 abstract class PublishingTestCase extends MongoDbTestCase
 {
 
-    protected $sut;
+    private $sut;
 
     abstract protected function createRootEntity(Author $author);
 
