@@ -15,7 +15,7 @@ use Trismegiste\Socialist\Author;
 class StatusTest extends PublishingTestCase
 {
 
-    static protected function createRootEntity(Author $author)
+    protected function createRootEntity(Author $author)
     {
         $sut = new Status($author);
         $sut->setMessage("Hello there !");
@@ -25,11 +25,11 @@ class StatusTest extends PublishingTestCase
         return $sut;
     }
 
-    public function testPrecision()
+    protected function assertRootEquals(\Trismegiste\Socialist\Publishing $doc)
     {
-        $restore = $this->repo->findOne([]);
-
-        $this->assertEquals(43.00001, $restore->getLatitude());
+        $this->assertEquals("Hello there !", $doc->getMessage());
+        $this->assertEquals(43.00001, $doc->getLatitude());
+        $this->assertEquals(7.00001, $doc->getLongitude());
     }
 
 }

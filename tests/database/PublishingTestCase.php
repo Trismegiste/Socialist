@@ -8,6 +8,7 @@ namespace tests\database;
 
 use Trismegiste\Socialist\Author;
 use Trismegiste\Socialist\Commentary;
+use Trismegiste\Socialist\Publishing;
 
 /**
  * PublishingTestCass is a persistence test case for all subclasses
@@ -16,19 +17,20 @@ use Trismegiste\Socialist\Commentary;
 abstract class PublishingTestCase extends MongoDbTestCase
 {
 
-    static protected $frozenSut;
+    protected $sut;
 
-    abstract static protected function createRootEntity(Author $author);
+    abstract protected function createRootEntity(Author $author);
 
-    public static function setupBeforeClass()
+    abstract protected function assertRootEquals(Publishing $doc);
+
+    final protected function createDocument()
     {
         $author = [
             new Author('spock'),
             new Author('kirk'),
             new Author('scotty')
         ];
-        $sut = static::createRootEntity($author[0]);
-
+        $sut = $this->createRootEntity($author[0]);
 
         // adding 'like' to the post
         foreach ($author as $a) {
@@ -46,13 +48,13 @@ abstract class PublishingTestCase extends MongoDbTestCase
             $sut->attachCommentary($comm);
         }
 
-        self::$frozenSut = $sut;
+        return $sut;
     }
 
     protected function setUp()
     {
         parent::setUp();
-        $this->sut = self::$frozenSut;
+        $this->sut = $this->createDocument();
     }
 
     public function testCreate()
@@ -72,9 +74,13 @@ abstract class PublishingTestCase extends MongoDbTestCase
     {
         $restore = $this->repo->findByPk((string) $pk);
         $this->assertCount(3, $restore->getCommentaryIterator());
-        $this->assertEquals($this->sut, $restore);
+        $comm = iterator_to_array($restore->getCommentaryIterator());
+        // checking commentary
+        $this->assertRegexp('#scotty#', $comm[0]->getMessage());
+        $this->assertRegexp('#kirk#', $comm[1]->getMessage());
+        $this->assertRegexp('#spock#', $comm[2]->getMessage());
 
-
+        $this->assertRootEquals($restore);
 
         return $restore;
     }
