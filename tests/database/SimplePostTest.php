@@ -8,50 +8,20 @@ namespace tests\database;
 
 use Trismegiste\Socialist\SimplePost;
 use Trismegiste\Socialist\Author;
-use Trismegiste\Socialist\Commentary;
 
 /**
  * SimplePostTest tests SimplePost persistence with all embeded entities
  */
-class SimplePostTest extends MongoDbTestCase
+class SimplePostTest extends PublishingTestCase
 {
 
-    static protected $frozenSut;
-
-    public static function setupBeforeClass()
+    static protected function createRootEntity(Author $author)
     {
-        $author = [
-            new Author('spock'),
-            new Author('kirk'),
-            new Author('scotty')
-        ];
-        $sut = new SimplePost($author[0]);
+        $sut = new SimplePost($author);
         $sut->setTitle("A title");
         $sut->setBody("main message");
 
-        // adding 'like' to the post
-        foreach ($author as $a) {
-            $sut->addFan($a);
-        }
-
-        // adding comments to the post
-        foreach ($author as $a) {
-            $comm = new Commentary($a);
-            $comm->setMessage("a comment from " . $a->getNickname());
-            // adding 'like' to each comment
-            foreach ($author as $c) {
-                $comm->addFan($c);
-            }
-            $sut->attachCommentary($comm);
-        }
-
-        self::$frozenSut = $sut;
-    }
-
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->sut = self::$frozenSut;
+        return $sut;
     }
 
     public function testCreate()
