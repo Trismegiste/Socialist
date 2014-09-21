@@ -24,7 +24,8 @@ class MongoDbTestCase extends \PHPUnit_Framework_TestCase
             'post' => 'Trismegiste\Socialist\SimplePost',
             'user' => 'Trismegiste\Socialist\User',
             'author' => 'Trismegiste\Socialist\Author',
-            'comm' => 'Trismegiste\Socialist\Commentary'
+            'comm' => 'Trismegiste\Socialist\Commentary',
+            'status' => 'Trismegiste\Socialist\Status'
         ]);
     }
 

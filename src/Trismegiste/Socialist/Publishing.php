@@ -11,11 +11,11 @@ use Trismegiste\Yuurei\Persistence\PersistableImpl;
 
 /**
  * Publishing is a Content with Commentary and Persistance in mongoDb
- * 
+ *
  * Like User entity, this is a vertex in the social digraph.
  * It's a rich document in MongoDb
  * It's designated as a "root-entity" in Yuurei persistence layer
- * 
+ *
  */
 abstract class Publishing extends Content implements Persistable
 {
@@ -30,14 +30,14 @@ abstract class Publishing extends Content implements Persistable
 
     /**
      * A slug for this content
-     * 
+     *
      * @var string
      */
     protected $slug;
 
     /**
      * Attach a commentary to this Published content
-     * 
+     *
      * @param \Trismegiste\Socialist\Commentary $comm
      */
     public function attachCommentary(Commentary $comm)
@@ -47,7 +47,7 @@ abstract class Publishing extends Content implements Persistable
 
     /**
      * Detach a commentary off this Published content
-     * 
+     *
      * @param \Trismegiste\Socialist\Commentary $comm
      */
     public function detachCommentary(Commentary $comm)
@@ -62,7 +62,7 @@ abstract class Publishing extends Content implements Persistable
 
     /**
      * Returns the list of commmentaries for this object
-     * 
+     *
      * @return array
      */
     public function getCommentary()
@@ -71,10 +71,20 @@ abstract class Publishing extends Content implements Persistable
     }
 
     /**
+     * Returns a outer iterator on commmentaries for this object
+     *
+     * @return array
+     */
+    public function getCommentaryIterator()
+    {
+        return new \ArrayIterator($this->commentary);
+    }
+
+    /**
      * Gets a commentary by its Unique Id
-     * 
+     *
      * @param type $uuid
-     * 
+     *
      * @return Commentary|null null if no commentary found
      */
     public function getCommentaryByUuid($uuid)

@@ -24,25 +24,4 @@ class SimplePostTest extends PublishingTestCase
         return $sut;
     }
 
-    public function testCreate()
-    {
-        $this->collection->drop();
-        $this->repo->persist($this->sut);
-        $pk = $this->sut->getId();
-        $this->assertInstanceOf('MongoId', $pk);
-
-        return $pk;
-    }
-
-    /**
-     * @depends testCreate
-     */
-    public function testRestore(\MongoId $pk)
-    {
-        $restore = $this->repo->findByPk((string) $pk);
-        $this->assertEquals($this->sut, $restore);
-
-        return $restore;
-    }
-
 }

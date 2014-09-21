@@ -71,7 +71,10 @@ abstract class PublishingTestCase extends MongoDbTestCase
     public function testRestore(\MongoId $pk)
     {
         $restore = $this->repo->findByPk((string) $pk);
+        $this->assertCount(3, $restore->getCommentaryIterator());
         $this->assertEquals($this->sut, $restore);
+
+
 
         return $restore;
     }
