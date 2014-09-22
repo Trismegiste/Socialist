@@ -21,7 +21,8 @@ trait FamousImpl
      */
     public function addFan(AuthorInterface $auth)
     {
-        // @todo Perhaps using the same technique in FollowerImpl ?
+        // @todo use only a list of nickname, do not store author
+        // the interface does not change, only internal storage
         $this->fanList[$auth->getNickname()] = $auth;
     }
 

@@ -21,6 +21,9 @@ class Status extends Publishing
     /** @var string */
     protected $message;
 
+    /** @var float */
+    protected $zoomLevel;
+
     /**
      * Sets the longitude of this status
      *
@@ -79,6 +82,26 @@ class Status extends Publishing
     public function setMessage($txt)
     {
         $this->message = $txt;
+    }
+
+    /**
+     * Sets the zoom level of the geo-map
+     * 
+     * @param float $z
+     */
+    public function setZoom($z)
+    {
+        $this->zoomLevel = $z;
+    }
+
+    /**
+     * Gets the zoom level
+     * 
+     * @return float
+     */
+    public function getZoom()
+    {
+        return $this->zoomLevel;
     }
 
 }

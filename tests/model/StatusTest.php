@@ -21,13 +21,13 @@ class StatusTest extends PublishingTest
 
     public function getFixtures()
     {
-        return [[7, 43, 'Some fancy comment']];
+        return [[7, 43, 8, 'Some fancy comment']];
     }
 
     /**
      * @dataProvider getFixtures
      */
-    public function testProperties($x, $y, $msg)
+    public function testProperties($x, $y, $z, $msg)
     {
         $this->sut->setMessage($msg);
         $this->assertEquals($msg, $this->sut->getMessage());
@@ -40,6 +40,10 @@ class StatusTest extends PublishingTest
         $this->sut->setLatitude($y);
         $this->assertEquals($y, $this->sut->getLatitude());
         $this->assertNotEquals($x, $this->sut->getLatitude());
+
+        $this->sut->setZoom($z);
+        $this->assertEquals($z, $this->sut->getZoom());
+        $this->assertNotEquals($y, $this->sut->getZoom());
     }
 
 }
