@@ -20,13 +20,13 @@ trait FollowerImpl
 
     /**
      * List of followers
-     * @var arrat
+     * @var array
      */
     protected $follower = [];
 
     /**
-     * Follows one guy (idempotent)
-     * 
+     * Follows one guy
+     *
      * @param \Trismegiste\Socialist\Follower $f
      */
     public function follow(Follower $f)
@@ -38,8 +38,8 @@ trait FollowerImpl
     }
 
     /**
-     * Unfollows one guy
-     * 
+     * Unfollows one guy (idempotent)
+     *
      * @param \Trismegiste\Socialist\Follower $f
      */
     public function unfollow(Follower $f)
@@ -49,20 +49,56 @@ trait FollowerImpl
     }
 
     /**
-     * Is this guy following anoher guy
-     * 
+     * Is this guy following another guy ?
+     *
      * @param \Trismegiste\Socialist\Follower $f
-     * 
+     *
      * @return boolean
      */
     public function isFollowing(Follower $f)
     {
-        return array_key_exists($f->getUniqueId(), $this->following);
+        return $this->followingExists($f->getUniqueId());
+    }
+
+    /**
+     * Is this guy followed by another guy ?
+     *
+     * @param \Trismegiste\Socialist\Follower $f
+     *
+     * @return boolean
+     */
+    public function isFollowedBy(Follower $f)
+    {
+        return $this->followerExists($f->getUniqueId());
+    }
+
+    /**
+     * Search if an unique id is registered in the following list
+     *
+     * @param mixed $uid
+     *
+     * @return bool
+     */
+    public function followingExists($uid)
+    {
+        return array_key_exists($uid, $this->following);
+    }
+
+    /**
+     * Search if an unique id is registered in the follower list
+     *
+     * @param mixed $uid
+     *
+     * @return bool
+     */
+    public function followerExists($uid)
+    {
+        return array_key_exists($uid, $this->follower);
     }
 
     /**
      * How many other guys this guy is following ?
-     * 
+     *
      * @return int
      */
     public function getFollowingCount()
@@ -72,7 +108,7 @@ trait FollowerImpl
 
     /**
      * How many followers for this guy ?
-     * 
+     *
      * @return int
      */
     public function getFollowerCount()
@@ -82,7 +118,7 @@ trait FollowerImpl
 
     /**
      * Get an iterator on follower's list
-     * 
+     *
      * @return \ArrayIterator
      */
     public function getFollowerIterator()
@@ -92,7 +128,7 @@ trait FollowerImpl
 
     /**
      * Get an iterator on following's list
-     * 
+     *
      * @return \ArrayIterator
      */
     public function getFollowingIterator()
@@ -104,7 +140,7 @@ trait FollowerImpl
      * Get an iterator on friend's list
      * WARNING: Not optimized.
      * Could be cached but must be updated for each follow()/unfollow() (for both vertices)
-     * 
+     *
      * @return \ArrayIterator
      */
     public function getFriendIterator()

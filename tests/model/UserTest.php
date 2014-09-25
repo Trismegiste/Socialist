@@ -47,7 +47,7 @@ class UserTest extends FamousTestTemplate
         $lst = [];
         foreach (['spock', 'scotty', 'mccoy'] as $nick) {
             $u = new User($this->createMockAuthor($nick));
-            $u->setId(new \MongoId()); // for unique identification
+            //  $u->setId(new \MongoId()); // for unique identification
             $lst[] = $u;
         }
 
@@ -149,6 +149,22 @@ class UserTest extends FamousTestTemplate
         $this->sut->follow($this->sut);
         $this->assertEquals(0, $this->sut->getFollowingCount());
         $this->assertEquals(0, $this->sut->getFollowerCount());
+    }
+
+    public function testBidirectionalRelation()
+    {
+        $user = $this->getListUser();
+        foreach ($user as $v) {
+            $v->follow($this->sut);
+        }
+        foreach ($user as $v) {
+            $this->assertTrue($this->sut->isFollowedBy($v));
+            $this->assertTrue($v->isFollowing($this->sut));
+            $this->assertTrue($this->sut->followerExists($v->getUniqueId()));
+            $this->assertTrue($v->followingExists($this->sut->getUniqueId()));
+            $this->assertCount(1, $v->getFollowingIterator());
+        }
+        $this->assertCount(count($user), $this->sut->getFollowerIterator());
     }
 
 }
