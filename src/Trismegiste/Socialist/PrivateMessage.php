@@ -20,6 +20,9 @@ class PrivateMessage implements Persistable
     protected $message;
     protected $read = false;
 
+    /** @var \DateTime */
+    protected $sentAt;
+
     /** @var \Trismegiste\Socialist\AuthorInterface */
     protected $source;
 
@@ -33,6 +36,7 @@ class PrivateMessage implements Persistable
         }
         $this->source = $source;
         $this->target = $target;
+        $this->sentAt = new \DateTime();
     }
 
     /**
@@ -77,7 +81,7 @@ class PrivateMessage implements Persistable
 
     /**
      * Is this message already been read ?
-     * 
+     *
      * @return bool
      */
     public function isRead()
