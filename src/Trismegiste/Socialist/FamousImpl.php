@@ -16,19 +16,17 @@ trait FamousImpl
 
     /**
      * Add an author to the list
-     * 
+     *
      * @param \Trismegiste\Socialist\AuthorInterface $auth
      */
     public function addFan(AuthorInterface $auth)
     {
-        // @todo use only a list of nickname, do not store author
-        // the interface does not change, only internal storage
-        $this->fanList[$auth->getNickname()] = $auth;
+        $this->fanList[$auth->getNickname()] = true;
     }
 
     /**
      * How many author like this ?
-     * 
+     *
      * @return int
      */
     public function getFanCount()
@@ -40,7 +38,7 @@ trait FamousImpl
      * Is an author in the list of fan ?
      *
      * @param \Trismegiste\Socialist\AuthorInterface $auth
-     * 
+     *
      * @return boolean if the fan is in the list
      */
     public function hasFan(AuthorInterface $auth)
@@ -60,7 +58,7 @@ trait FamousImpl
 
     /**
      * Returns an iterator on fans
-     * 
+     *
      * @return \ArrayIterator
      */
     public function getFanIterator()

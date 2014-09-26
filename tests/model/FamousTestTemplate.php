@@ -12,7 +12,9 @@ namespace tests\model;
 abstract class FamousTestTemplate extends \PHPUnit_Framework_TestCase
 {
 
+    /** @var Trismegiste\Socialist\Famous */
     protected $sut;
+    /** @var \Trismegiste\Socialist\AuthorInterface */
     protected $fan;
 
     abstract protected function createSUT();
@@ -48,8 +50,8 @@ abstract class FamousTestTemplate extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->sut->hasFan($this->fan));
 
         $it = $this->sut->getFanIterator();
-        $first = $it->current();
-        $this->assertEquals($this->fan, $first);
+        $first = $it->key();
+        $this->assertEquals($this->fan->getNickname(), $first);
     }
 
 }
