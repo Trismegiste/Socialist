@@ -18,6 +18,7 @@ class PrivateMessage implements Persistable
     use PersistableImpl;
 
     protected $message;
+    protected $read = false;
 
     /** @var \Trismegiste\Socialist\AuthorInterface */
     protected $source;
@@ -72,6 +73,24 @@ class PrivateMessage implements Persistable
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Is this message already been read ?
+     * 
+     * @return bool
+     */
+    public function isRead()
+    {
+        return $this->read;
+    }
+
+    /**
+     * Sets this message as "read"
+     */
+    public function markAsRead()
+    {
+        $this->read = true;
     }
 
 }

@@ -36,6 +36,13 @@ class PrivateMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->target, $this->sut->getTarget());
     }
 
+    public function testIsRead()
+    {
+        $this->assertFalse($this->sut->isRead());
+        $this->sut->markAsRead();
+        $this->assertTrue($this->sut->isRead());
+    }
+
     public function testContent()
     {
         $this->sut->setMessage('Engage !');
