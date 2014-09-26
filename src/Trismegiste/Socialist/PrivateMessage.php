@@ -97,4 +97,14 @@ class PrivateMessage implements Persistable
         $this->read = true;
     }
 
+    /**
+     * Returns the date when this message was sent
+     * 
+     * @return \DateTime
+     */
+    public function getSentAt()
+    {
+        return $this->sentAt;
+    }
+
 }
