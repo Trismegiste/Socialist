@@ -97,6 +97,28 @@ trait FollowerImpl
     }
 
     /**
+     * Returns the type of relation between this object and a unique id
+     *
+     * @param mixed $uid
+     *
+     * @return int one of those RELATION_* const
+     */
+    public function findRelationType($uid)
+    {
+        //default :
+        $type = Follower::RELATION_STRANGER;
+        // find if follower ?
+        if ($this->followerExists($uid)) {
+            $type = Follower::RELATION_FOLLOWER;
+        }
+        if ($this->followingExists($uid)) {
+            $type |= Follower::RELATION_FOLOWING;
+        }
+
+        return $type;
+    }
+
+    /**
      * How many other guys this guy is following ?
      *
      * @return int

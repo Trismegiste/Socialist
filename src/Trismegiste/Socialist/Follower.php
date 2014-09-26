@@ -13,6 +13,11 @@ namespace Trismegiste\Socialist;
 interface Follower
 {
 
+    const RELATION_STRANGER = 0;
+    const RELATION_FOLLOWER = 1;
+    const RELATION_FOLOWING = 2;
+    const RELATION_FRIEND = 3;
+
     /**
      * Returns a unique id for this follower
      *
@@ -69,6 +74,15 @@ interface Follower
      * @return bool
      */
     public function followerExists($uid);
+
+    /**
+     * Returns the type of relation between this object and a unique id
+     *
+     * @param mixed $uid
+     *
+     * @return int one of those RELATION_* const
+     */
+    public function findRelationType($uid);
 
     /**
      * How many other guys this guy is following ?

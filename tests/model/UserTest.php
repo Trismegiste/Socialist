@@ -7,6 +7,7 @@
 namespace tests\model;
 
 use Trismegiste\Socialist\User;
+use Trismegiste\Socialist\Follower;
 
 /**
  * UserTest tests User
@@ -165,6 +166,19 @@ class UserTest extends FamousTestTemplate
             $this->assertCount(1, $v->getFollowingIterator());
         }
         $this->assertCount(count($user), $this->sut->getFollowerIterator());
+    }
+
+    public function testRelationType()
+    {
+        $user = $this->getListUser()[0];
+        $this->assertEquals(Follower::RELATION_STRANGER, $this->sut->findRelationType('spock'));
+        $this->assertEquals(Follower::RELATION_STRANGER, $user->findRelationType('kirk'));
+        $this->sut->follow($user);
+        $this->assertEquals(Follower::RELATION_FOLOWING, $this->sut->findRelationType('spock'));
+        $this->assertEquals(Follower::RELATION_FOLLOWER, $user->findRelationType('kirk'));
+        $user->follow($this->sut);
+        $this->assertEquals(Follower::RELATION_FRIEND, $this->sut->findRelationType('spock'));
+        $this->assertEquals(Follower::RELATION_FRIEND, $user->findRelationType('kirk'));
     }
 
 }
