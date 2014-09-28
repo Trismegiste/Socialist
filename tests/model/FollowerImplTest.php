@@ -16,10 +16,9 @@ class FollowerImplTest extends \PHPUnit_Framework_TestCase
     {
         $code = <<<CODE
                 namespace Trismegiste\Socialist;
-                class ConcreteFollower implements Follower { 
-                    use FollowerImpl; 
+                class ConcreteFollower implements Follower {
+                    use FollowerImpl;
                     public function getUniqueId() {}
-                    public function getMinimalInfo() {}
                 }
 CODE;
         eval($code);

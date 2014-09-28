@@ -99,7 +99,7 @@ class UserTest extends MongoDbTestCase
         $this->assertEquals(1, $restore->getFollowingCount());
         $this->assertEquals(1, $restore->getFollowerCount());
         $this->assertCount(1, $restore->getFriendIterator());
-        $this->assertEquals('pike', $restore->getFriendIterator()->current()->getNickname());
+        $this->assertEquals('pike', $restore->getFriendIterator()->key());
     }
 
 }

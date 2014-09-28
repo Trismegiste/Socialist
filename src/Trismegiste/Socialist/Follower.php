@@ -99,13 +99,6 @@ interface Follower
     public function getFollowerCount();
 
     /**
-     * Returns the minimal informations for a follower (optim)
-     *
-     * return object
-     */
-    public function getMinimalInfo();
-
-    /**
      * Get an iterator on follower's list
      *
      * @return \ArrayIterator

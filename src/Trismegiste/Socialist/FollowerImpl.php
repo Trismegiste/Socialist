@@ -32,8 +32,8 @@ trait FollowerImpl
     public function follow(Follower $f)
     {
         if ($f !== $this) {
-            $this->following[$f->getUniqueId()] = $f->getMinimalInfo();
-            $f->follower[$this->getUniqueId()] = $this->getMinimalInfo();
+            $this->following[$f->getUniqueId()] = true;
+            $f->follower[$this->getUniqueId()] = true;
         }
     }
 

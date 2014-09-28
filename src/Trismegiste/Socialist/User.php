@@ -59,14 +59,4 @@ class User implements Famous, Persistable, Follower
         return $this->author->getNickname();
     }
 
-    /**
-     * Gets the minimal info (the Author)
-     *
-     * @return AuthorInterface
-     */
-    public function getMinimalInfo()
-    {
-        return $this->author;
-    }
-
 }
