@@ -58,4 +58,9 @@ class PrivateMessageTest extends \PHPUnit_Framework_TestCase
         new PrivateMessage($loop, $loop);
     }
 
+    public function testTimestamp()
+    {
+        $this->assertInstanceOf('DateTime', $this->sut->getSentAt());
+    }
+
 }
