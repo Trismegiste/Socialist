@@ -3,8 +3,8 @@
     "description": "social network library",
     "license": "MIT",
     "autoload": {
-        "psr-0": {
-            "Trismegiste\\Socialist\\": "src"
+        "psr-4": {
+            "Trismegiste\\Socialist\\": "src/"
         }
     },
     "require": {
