@@ -12,7 +12,8 @@ namespace Trismegiste\Socialist;
 abstract class Content implements Famous, AbusiveReport
 {
 
-    use FamousImpl;
+    use FamousImpl,
+        AbusiveReportImpl;
 
     protected $owner;
     protected $lastEdited;
@@ -22,7 +23,7 @@ abstract class Content implements Famous, AbusiveReport
 
     /**
      * Ctor
-     * 
+     *
      * @param \Trismegiste\Socialist\AuthorInterface $auth the author of this content
      */
     public function __construct(AuthorInterface $auth)
@@ -34,7 +35,7 @@ abstract class Content implements Famous, AbusiveReport
 
     /**
      * Returns the author of this object
-     * 
+     *
      * @return AuthorInterface
      */
     public function getAuthor()
@@ -44,7 +45,7 @@ abstract class Content implements Famous, AbusiveReport
 
     /**
      * Set the timestamp for the last edit of this object
-     * 
+     *
      * @param \DateTime $d
      */
     public function setLastEdited(\DateTime $d)
@@ -54,7 +55,7 @@ abstract class Content implements Famous, AbusiveReport
 
     /**
      * Returns last edit date
-     * 
+     *
      * @return \DateTime
      */
     public function getLastEdited()
@@ -64,7 +65,7 @@ abstract class Content implements Famous, AbusiveReport
 
     /**
      * returns date of creation for this entity
-     * 
+     *
      * @return \DateTime
      */
     public function getCreatedAt()

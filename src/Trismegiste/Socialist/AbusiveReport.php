@@ -12,5 +12,12 @@ namespace Trismegiste\Socialist;
  */
 interface AbusiveReport
 {
-    // not implemented yet
+
+    /**
+     * Report a content as abusive content
+     *
+     * @param \Trismegiste\Socialist\AuthorInterface $author
+     * @param string $msg
+     */
+    public function report(AuthorInterface $author, $msg = '');
 }

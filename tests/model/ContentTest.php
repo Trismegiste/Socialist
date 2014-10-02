@@ -53,4 +53,11 @@ class ContentTest extends FamousTestTemplate
         $this->assertGreaterThanOrEqual($this->sut->getCreatedAt()->getTimestamp(), time());
     }
 
+    public function testReportAbusive()
+    {
+        $reporter = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $this->sut->report($reporter);
+        $this->assertAttributeCount(1, 'abusive', $this->sut);
+    }
+
 }
