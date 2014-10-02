@@ -9,7 +9,7 @@ namespace tests\model;
 use Trismegiste\Socialist\Status;
 
 /**
- * SimplePostTest tests SimplePost
+ * StatusTest tests SimplePost
  */
 class StatusTest extends PublishingTest
 {
