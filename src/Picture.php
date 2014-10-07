@@ -31,7 +31,7 @@ class Picture extends SmallTalk
      */
     public function setStorageKey($key)
     {
-        $this->objectKey = $key;
+        $this->storageKey = $key;
     }
 
     /**
@@ -41,7 +41,7 @@ class Picture extends SmallTalk
      */
     public function getStorageKey()
     {
-        return $this->objectKey;
+        return $this->storageKey;
     }
 
     /**
