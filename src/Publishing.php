@@ -98,4 +98,11 @@ abstract class Publishing extends Content implements Persistable
         return null;
     }
 
+    public function removeSubEntities()
+    {
+        $this->fanList = [];
+        $this->commentary = [];
+        $this->abusive = [];
+    }
+
 }

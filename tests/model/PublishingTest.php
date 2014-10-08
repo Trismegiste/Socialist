@@ -90,4 +90,21 @@ class PublishingTest extends ContentTest
         $this->assertNull($this->sut->getCommentaryByUuid(111));
     }
 
+    public function testRemoveSubEntities()
+    {
+        $this->sut->addFan($this->fan);
+        $this->sut->attachCommentary($this->message);
+        $this->sut->report($this->fan);
+
+        $this->assertAttributeCount(1, 'abusive', $this->sut);
+        $this->assertCount(1, $this->sut->getCommentary());
+        $this->assertEquals(1, $this->sut->getFanCount());
+
+        $this->sut->removeSubEntities();
+
+        $this->assertAttributeCount(0, 'abusive', $this->sut);
+        $this->assertCount(0, $this->sut->getCommentary());
+        $this->assertEquals(0, $this->sut->getFanCount());
+    }
+
 }

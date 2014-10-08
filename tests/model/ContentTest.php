@@ -58,6 +58,8 @@ class ContentTest extends FamousTestTemplate
         $reporter = $this->getMock('Trismegiste\Socialist\AuthorInterface');
         $this->sut->report($reporter);
         $this->assertAttributeCount(1, 'abusive', $this->sut);
+        $this->sut->report($reporter);
+        $this->assertAttributeCount(1, 'abusive', $this->sut);
     }
 
 }
