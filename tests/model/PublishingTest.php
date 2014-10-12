@@ -33,6 +33,7 @@ class PublishingTest extends ContentTest
     {
         return $this->getMockBuilder('Trismegiste\Socialist\Commentary')
                         ->disableOriginalConstructor()
+                        ->setMethods(['setUuid', 'getUuid'])
                         ->getMock();
     }
 
@@ -70,11 +71,15 @@ class PublishingTest extends ContentTest
     public function testGetByUuid()
     {
         $this->message->expects($this->once())
+                ->method('setUuid')
+                ->with($this->isInstanceOf('MongoId'));
+        $uuid = new \MongoId();
+        $this->message->expects($this->once())
                 ->method('getUuid')
-                ->will($this->returnValue(666));
+                ->will($this->returnValue($uuid));
 
         $this->sut->attachCommentary($this->message);
-        $found = $this->sut->getCommentaryByUuid(666);
+        $found = $this->sut->getCommentaryByUuid((string) $uuid);
 
         $this->assertEquals($this->message, $found);
     }
@@ -83,11 +88,11 @@ class PublishingTest extends ContentTest
     {
         $this->message->expects($this->once())
                 ->method('getUuid')
-                ->will($this->returnValue(666));
+                ->will($this->returnValue(new \MongoId()));
 
         $this->sut->attachCommentary($this->message);
 
-        $this->assertNull($this->sut->getCommentaryByUuid(111));
+        $this->assertNull($this->sut->getCommentaryByUuid((string) (new \MongoId())));
     }
 
     public function testRemoveSubEntities()

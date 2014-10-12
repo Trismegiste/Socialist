@@ -9,7 +9,7 @@ namespace Trismegiste\Socialist;
 /**
  * Repeat is a retweet of a Publishing
  */
-class Repeat extends SmallTalk
+class Repeat extends Publishing
 {
 
     /** @var Trismegiste\Socialist\Publishing */

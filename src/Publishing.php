@@ -42,6 +42,7 @@ abstract class Publishing extends Content implements Persistable
      */
     public function attachCommentary(Commentary $comm)
     {
+        $comm->setUuid(new \MongoId());
         array_unshift($this->commentary, $comm);
     }
 
@@ -83,14 +84,14 @@ abstract class Publishing extends Content implements Persistable
     /**
      * Gets a commentary by its Unique Id
      *
-     * @param type $uuid
+     * @param string $uuid
      *
      * @return Commentary|null null if no commentary found
      */
     public function getCommentaryByUuid($uuid)
     {
         foreach ($this->commentary as $comm) {
-            if ($comm->getUuid() === $uuid) {
+            if ((string) $comm->getUuid() === $uuid) {
                 return $comm;
             }
         }

@@ -36,7 +36,8 @@ class CommentaryTest extends ContentTest
 
     public function testUuid()
     {
-        $this->assertRegExp('#^[\da-f]{40}$#', $this->sut->getUuid());
+        $this->sut->setUuid(123);
+        $this->assertEquals(123, $this->sut->getUuid());
     }
 
 }

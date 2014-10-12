@@ -16,19 +16,8 @@ class Commentary extends Content
     protected $uuid;
 
     /**
-     * Builds the Commentary with the author
-     * 
-     * @param \Trismegiste\Socialist\AuthorInterface $auth
-     */
-    public function __construct(AuthorInterface $auth)
-    {
-        parent::__construct($auth);
-        $this->uuid = sha1($auth->getNickname() . microtime(true));
-    }
-
-    /**
      * Gets the texte of this message
-     * 
+     *
      * @return string
      */
     public function getMessage()
@@ -38,7 +27,7 @@ class Commentary extends Content
 
     /**
      * Sets the content of this message
-     * 
+     *
      * @param string $str
      */
     public function setMessage($str)
@@ -48,12 +37,22 @@ class Commentary extends Content
 
     /**
      * returns unique identifier for this commentary
-     * 
-     * @return string
+     *
+     * @return mixed
      */
     public function getUuid()
     {
         return $this->uuid;
+    }
+
+    /**
+     * Sets the unique identifier for this commentary
+     *
+     * @param mixed $uuid
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
     }
 
 }
