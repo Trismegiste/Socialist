@@ -15,6 +15,11 @@ class Repeat extends Publishing
     /** @var Trismegiste\Socialist\Publishing */
     protected $embedded;
 
+    /**
+     * Sets the repeated Publishing content
+     *
+     * @param \Trismegiste\Socialist\Publishing $pub
+     */
     public function setEmbedded(Publishing $pub)
     {
         if ($pub instanceof Repeat) {
@@ -27,6 +32,11 @@ class Repeat extends Publishing
         $this->embedded->removeSubEntities();
     }
 
+    /**
+     * Gets the repeated Publishing content
+     *
+     * @return Publishing
+     */
     public function getEmbedded()
     {
         return $this->embedded;
