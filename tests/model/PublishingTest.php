@@ -39,31 +39,31 @@ class PublishingTest extends ContentTest
 
     public function testAttachCommentary()
     {
-        $this->assertCount(0, $this->sut->getCommentary());
+        $this->assertEquals(0, $this->sut->getCommentaryCount());
         $this->sut->attachCommentary($this->message);
-        $this->assertCount(1, $this->sut->getCommentary());
+        $this->assertEquals(1, $this->sut->getCommentaryCount());
     }
 
     public function testDetachCommentary()
     {
-        $this->assertCount(0, $this->sut->getCommentary());
+        $this->assertEquals(0, $this->sut->getCommentaryCount());
         $this->sut->attachCommentary($this->message);
-        $this->assertCount(1, $this->sut->getCommentary());
+        $this->assertEquals(1, $this->sut->getCommentaryCount());
         $this->sut->detachCommentary($this->message);
-        $this->assertCount(0, $this->sut->getCommentary());
+        $this->assertEquals(0, $this->sut->getCommentaryCount());
         $this->sut->detachCommentary($this->message);
     }
 
     public function testCommentarySorting()
     {
         $this->sut->attachCommentary($this->message);
-        $this->assertCount(1, $this->sut->getCommentary());
+        $this->assertEquals(1, $this->sut->getCommentaryCount());
 
         $recentMessage = $this->createCommentary();
         $this->sut->attachCommentary($recentMessage);
-        $this->assertCount(2, $this->sut->getCommentary());
+        $this->assertEquals(2, $this->sut->getCommentaryCount());
 
-        $comments = $this->sut->getCommentary();
+        $comments = iterator_to_array($this->sut->getCommentaryIterator());
         $this->assertEquals($recentMessage, $comments[0]);
         $this->assertEquals($this->message, $comments[1]);
     }
@@ -102,13 +102,13 @@ class PublishingTest extends ContentTest
         $this->sut->report($this->fan);
 
         $this->assertAttributeCount(1, 'abusive', $this->sut);
-        $this->assertCount(1, $this->sut->getCommentary());
+        $this->assertEquals(1, $this->sut->getCommentaryCount());
         $this->assertEquals(1, $this->sut->getFanCount());
 
         $this->sut->removeSubEntities();
 
         $this->assertAttributeCount(0, 'abusive', $this->sut);
-        $this->assertCount(0, $this->sut->getCommentary());
+        $this->assertEquals(0, $this->sut->getCommentaryCount());
         $this->assertEquals(0, $this->sut->getFanCount());
     }
 

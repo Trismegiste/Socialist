@@ -23,17 +23,10 @@ abstract class Publishing extends Content implements Persistable
     use PersistableImpl;
 
     /**
-     * An unsorted list of Commentary
+     * A list of Commentary : the most recent first
      * @var array
      */
     protected $commentary = [];
-
-    /**
-     * A slug for this content
-     *
-     * @var string
-     */
-    protected $slug;
 
     /**
      * Attach a commentary to this Published content
@@ -62,19 +55,19 @@ abstract class Publishing extends Content implements Persistable
     }
 
     /**
-     * Returns the list of commmentaries for this object
+     * Returns the counter for commmentaries embedded in this object
      *
-     * @return array
+     * @return int
      */
-    public function getCommentary()
+    public function getCommentaryCount()
     {
-        return $this->commentary;
+        return count($this->commentary);
     }
 
     /**
      * Returns a outer iterator on commmentaries for this object
      *
-     * @return array
+     * @return \ArrayIterator
      */
     public function getCommentaryIterator()
     {
@@ -99,6 +92,14 @@ abstract class Publishing extends Content implements Persistable
         return null;
     }
 
+    /**
+     * Clean this object by removing all embedded sub-entities :
+     * - fanList (like)
+     * - commentaries
+     * - abuse reports
+     *
+     * Of course, we keep the mandatory Author...
+     */
     public function removeSubEntities()
     {
         $this->fanList = [];
