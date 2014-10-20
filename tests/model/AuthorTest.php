@@ -41,4 +41,9 @@ class AuthorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('spock', $this->sut->getNickname());
     }
 
+    public function testIsEqual()
+    {
+        $this->assertTrue($this->sut->isEqual($this->sut));
+    }
+
 }

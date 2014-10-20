@@ -15,11 +15,14 @@ class RepeatTest extends PublishingTest
 {
 
     protected $embedded;
+    protected $otherAuthor;
 
     protected function setUp()
     {
+        $this->otherAuthor = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+
         $this->embedded = $this->getMockBuilder('Trismegiste\Socialist\Publishing')
-                ->disableOriginalConstructor()
+                ->setConstructorArgs([$this->otherAuthor])
                 ->setMethods(null)
                 ->getMock();
         parent::setUp();
@@ -70,6 +73,46 @@ class RepeatTest extends PublishingTest
     public function testEditable()
     {
         $this->assertFalse($this->sut->isEditable());
+    }
+
+    /**
+     * @expectedException \DomainException
+     * @expectedExceptionMessage repeat yourself
+     */
+    public function testAuthorCannotRepeatHimself()
+    {
+        $this->otherAuthor->expects($this->any())
+                ->method('isEqual')
+                ->with($this->isInstanceOf('Trismegiste\Socialist\AuthorInterface'))
+                ->will($this->returnValue(true));
+
+        $this->sut->setEmbedded($this->embedded);
+    }
+
+    /**
+     * @expectedException \DomainException
+     * @expectedExceptionMessage repeat yourself
+     */
+    public function testAuthorCannotRepeatARepeatFromOtherOfHimself()
+    {
+        // I'm equal to myself :
+        $this->mockAuthorInterface->expects($this->any())
+                ->method('isEqual')
+                ->with($this->equalTo($this->mockAuthorInterface))
+                ->will($this->returnValue(true));
+
+        // a content from me...
+        $fromMe = $this->getMockBuilder('Trismegiste\Socialist\Publishing')
+                ->setConstructorArgs([$this->mockAuthorInterface])
+                ->setMethods(null)
+                ->getMock();
+
+        // ... is retweeted by other...
+        $retweetOfMe = new Repeat($this->otherAuthor);
+        $retweetOfMe->setEmbedded($fromMe);
+
+        // ... but it throws an exception anyway
+        $this->sut->setEmbedded($retweetOfMe);
     }
 
 }

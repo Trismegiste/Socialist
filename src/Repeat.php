@@ -22,10 +22,13 @@ class Repeat extends Publishing
      */
     public function setEmbedded(Publishing $pub)
     {
+        // we don't retweet a retweet :
         if ($pub instanceof Repeat) {
-            // we don't retweet a retweet
             $pub = $pub->getEmbedded();
-            // @todo at this point, incrementing a retweet counter could be cool
+        }
+        // an author shouldn't repeat himself :
+        if ($pub->getAuthor()->isEqual($this->getAuthor())) {
+            throw new \DomainException('You cannot repeat yourself');
         }
 
         $this->embedded = clone $pub;

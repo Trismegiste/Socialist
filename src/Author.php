@@ -17,7 +17,7 @@ class Author implements AuthorInterface
 
     /**
      * Ctor
-     * 
+     *
      * @param string $name the uniique name for this author
      */
     public function __construct($name)
@@ -47,6 +47,14 @@ class Author implements AuthorInterface
     public function getNickname()
     {
         return $this->nickname;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isEqual(AuthorInterface $other)
+    {
+        return $this->nickname === $other->getNickname();
     }
 
 }
