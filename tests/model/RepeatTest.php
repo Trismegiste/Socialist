@@ -111,8 +111,24 @@ class RepeatTest extends PublishingTest
         $retweetOfMe = new Repeat($this->otherAuthor);
         $retweetOfMe->setEmbedded($fromMe);
 
-        // ... but it throws an exception anyway
+        // ... but it throws an exception anyway if I try to repeat the retweet
         $this->sut->setEmbedded($retweetOfMe);
+    }
+
+    public function testGetSourceIdWhenNoEmbedded()
+    {
+        $this->assertEquals(null, $this->sut->getSourceId());
+    }
+
+    public function testGetSourceId()
+    {
+        $pk = new \MongoId();
+        $pkEmbed = new \MongoId();
+        $this->embedded->setId($pkEmbed);
+        $this->sut->setId($pk);
+        $this->sut->setEmbedded($this->embedded);
+        $this->assertEquals($pkEmbed, $this->sut->getSourceId());
+        $this->assertNotEquals($pk, $this->sut->getSourceId());
     }
 
 }

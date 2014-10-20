@@ -53,4 +53,14 @@ class Repeat extends Publishing
         return false;
     }
 
+    /**
+     * {@inheritdoc}
+     * Since getId() can return null (= new record), it is acceptable to return
+     * null when no embedded is set (instead of throwing an exception)
+     */
+    public function getSourceId()
+    {
+        return is_null($this->embedded) ? null : $this->embedded->getId();
+    }
+
 }

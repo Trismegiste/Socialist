@@ -109,11 +109,23 @@ abstract class Publishing extends Content implements Persistable
 
     /**
      * Is this published content editable after its creation ?
-     * 
+     *
      * @return boolean
      */
     public function isEditable()
     {
         return true;
     }
+
+    /**
+     * Gets the id of the original Publishing source (except when the Publishing is a
+     * Repeat, this id is generally equal to getId().
+     *
+     * @return \MongoId
+     */
+    public function getSourceId()
+    {
+        return $this->getId();
+    }
+
 }

@@ -117,4 +117,11 @@ class PublishingTest extends ContentTest
         $this->assertTrue($this->sut->isEditable());
     }
 
+    public function testGetSourceId()
+    {
+        $pk = new \MongoId();
+        $this->sut->setId($pk);
+        $this->assertEquals($pk, $this->sut->getSourceId());
+    }
+
 }
