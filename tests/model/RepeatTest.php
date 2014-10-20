@@ -67,4 +67,9 @@ class RepeatTest extends PublishingTest
         $this->assertEquals($this->embedded, $this->sut->getEmbedded());
     }
 
+    public function testEditable()
+    {
+        $this->assertFalse($this->sut->isEditable());
+    }
+
 }

@@ -112,4 +112,9 @@ class PublishingTest extends ContentTest
         $this->assertEquals(0, $this->sut->getFanCount());
     }
 
+    public function testEditable()
+    {
+        $this->assertTrue($this->sut->isEditable());
+    }
+
 }
