@@ -42,4 +42,12 @@ class Repeat extends Publishing
         return $this->embedded;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function isEditable()
+    {
+        return false;
+    }
+
 }

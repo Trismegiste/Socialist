@@ -107,4 +107,13 @@ abstract class Publishing extends Content implements Persistable
         $this->abusive = [];
     }
 
+    /**
+     * Is this published content editable after its creation ?
+     * 
+     * @return boolean
+     */
+    public function isEditable()
+    {
+        return true;
+    }
 }

@@ -18,9 +18,9 @@ class Picture extends SmallTalk
     protected $storageKey;
 
     /**
-     * @var string the mime-type of this picture
+     * @var string the mime-type of this picture : image/*
      */
-    protected $mimeType = 'image/*';
+    protected $mimeType;
 
     /**
      * set the storage key of this picture
