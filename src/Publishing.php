@@ -17,7 +17,7 @@ use Trismegiste\Yuurei\Persistence\PersistableImpl;
  * It's designated as a "root-entity" in Yuurei persistence layer
  *
  */
-abstract class Publishing extends Content implements Persistable
+abstract class Publishing extends Content implements Persistable, Repeatable
 {
 
     use PersistableImpl;
@@ -27,6 +27,9 @@ abstract class Publishing extends Content implements Persistable
      * @var array
      */
     protected $commentary = [];
+
+    /** @var int */
+    protected $repeatedCount = 0;
 
     /**
      * Attach a commentary to this Published content
@@ -118,14 +121,19 @@ abstract class Publishing extends Content implements Persistable
     }
 
     /**
-     * Gets the id of the original Publishing source (except when the Publishing is a
-     * Repeat, this id is generally equal to getId().
-     *
-     * @return \MongoId
+     * @inheritdoc
      */
     public function getSourceId()
     {
         return $this->getId();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRepeatedCount()
+    {
+        return $this->repeatedCount;
     }
 
 }

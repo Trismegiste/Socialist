@@ -8,6 +8,10 @@ namespace Trismegiste\Socialist;
 
 /**
  * FollowerImpl is an implementation of Follower
+ * 
+ * @todo Maybe it is more efficient to merge the two list of follower/following into
+ * one array 'relation' with the flag constant as value instead of true.
+ * Need 3 FilterIterator Following/Follower/Friend to wrap the list : need benchmark
  */
 trait FollowerImpl
 {
@@ -112,7 +116,7 @@ trait FollowerImpl
             $type = Follower::RELATION_FOLLOWER;
         }
         if ($this->followingExists($uid)) {
-            $type |= Follower::RELATION_FOLOWING;
+            $type |= Follower::RELATION_FOLOWING; // @todo Typo
         }
 
         return $type;

@@ -55,8 +55,8 @@ class Repeat extends Publishing
 
     /**
      * {@inheritdoc}
-     * Since getId() can return null (= new record), it is acceptable to return
-     * null when no embedded is set (instead of throwing an exception)
+     * Since getId() can return null (= new record), Liskov dictates to return
+     * null when no embedded is set (in no way you'd throw an exception).
      */
     public function getSourceId()
     {
