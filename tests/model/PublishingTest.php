@@ -124,4 +124,9 @@ class PublishingTest extends ContentTest
         $this->assertEquals($pk, $this->sut->getSourceId());
     }
 
+    public function testRepeatedCount()
+    {
+        $this->assertEquals(0, $this->sut->getRepeatedCount());
+    }
+
 }
