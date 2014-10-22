@@ -131,4 +131,10 @@ class RepeatTest extends PublishingTest
         $this->assertNotEquals($pk, $this->sut->getSourceId());
     }
 
+    public function testFakeIncrement()
+    {
+        $this->sut->setEmbedded($this->embedded);
+        $this->assertEquals(1, $this->sut->getRepeatedCount());
+    }
+
 }

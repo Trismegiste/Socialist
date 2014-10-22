@@ -33,6 +33,7 @@ class Repeat extends Publishing
 
         $this->embedded = clone $pub;
         $this->embedded->removeSubEntities();
+        $this->repeatedCount = $pub->getRepeatedCount() + 1; // just to fake th real increment
     }
 
     /**
