@@ -28,7 +28,7 @@ class Status extends SmallTalk
      */
     public function setLongitude($lo)
     {
-        $this->longitude = $lo;
+        $this->longitude = (float) $lo;
     }
 
     /**
@@ -38,7 +38,7 @@ class Status extends SmallTalk
      */
     public function setLatitude($la)
     {
-        $this->latitude = $la;
+        $this->latitude = (float) $la;
     }
 
     /**
