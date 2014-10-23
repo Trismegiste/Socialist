@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="tests/bootstrap.php"
-         colors="false">
+         colors="true">
 
     <testsuites>
         <testsuite name="Socialist">
@@ -20,5 +20,5 @@
              yui="true" highlight="false"
              lowUpperBound="50" highLowerBound="90"/>
     </logging>
-    
+
 </phpunit>

@@ -68,7 +68,7 @@ class Status extends SmallTalk
      */
     public function setZoom($z)
     {
-        $this->zoomLevel = $z;
+        $this->zoomLevel = (float) $z;
     }
 
     /**

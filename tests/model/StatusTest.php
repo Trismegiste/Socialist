@@ -21,7 +21,10 @@ class StatusTest extends PublishingTest
 
     public function getFixtures()
     {
-        return [[7, 43, 8, 'Some fancy comment']];
+        return [
+            [7, 43, 8, 'Some fancy comment'],
+            ['7', '43', '8', 'Some fancy comment']
+        ];
     }
 
     /**
@@ -34,15 +37,15 @@ class StatusTest extends PublishingTest
         $this->assertNotEquals($x, $this->sut->getMessage());
 
         $this->sut->setLongitude($x);
-        $this->assertEquals($x, $this->sut->getLongitude());
+        $this->assertSame((float) $x, $this->sut->getLongitude());
         $this->assertNotEquals($y, $this->sut->getLongitude());
 
         $this->sut->setLatitude($y);
-        $this->assertEquals($y, $this->sut->getLatitude());
+        $this->assertEquals((float) $y, $this->sut->getLatitude());
         $this->assertNotEquals($x, $this->sut->getLatitude());
 
         $this->sut->setZoom($z);
-        $this->assertEquals($z, $this->sut->getZoom());
+        $this->assertEquals((float) $z, $this->sut->getZoom());
         $this->assertNotEquals($y, $this->sut->getZoom());
     }
 
