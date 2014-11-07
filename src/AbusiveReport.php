@@ -20,4 +20,20 @@ interface AbusiveReport
      * @param string $msg
      */
     public function report(AuthorInterface $author, $msg = '');
+
+    /**
+     * Cancel a report
+     *
+     * @param \Trismegiste\Socialist\AuthorInterface $author
+     */
+    public function cancelReport(AuthorInterface $author);
+
+    /**
+     * Is an author has reported this content as abuse/spam ?
+     *
+     * @param \Trismegiste\Socialist\AuthorInterface $author
+     *
+     * @return boolean
+     */
+    public function isReportedBy(AuthorInterface $author);
 }

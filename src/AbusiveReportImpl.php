@@ -19,4 +19,14 @@ trait AbusiveReportImpl
         $this->abusive[$author->getNickname()] = $msg;
     }
 
+    public function isReportedBy(AuthorInterface $author)
+    {
+        return array_key_exists($author->getNickname(), $this->abusive);
+    }
+
+    public function cancelReport(AuthorInterface $author)
+    {
+        unset($this->abusive[$author->getNickname()]);
+    }
+
 }

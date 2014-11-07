@@ -60,6 +60,12 @@ class ContentTest extends FamousTestTemplate
         $this->assertAttributeCount(1, 'abusive', $this->sut);
         $this->sut->report($reporter);
         $this->assertAttributeCount(1, 'abusive', $this->sut);
+
+        $this->assertTrue($this->sut->isReportedBy($reporter));
+
+        $this->sut->cancelReport($reporter);
+        $this->assertAttributeCount(0, 'abusive', $this->sut);
+        $this->assertFalse($this->sut->isReportedBy($reporter));
     }
 
 }
