@@ -51,7 +51,7 @@ abstract class Publishing extends Content implements Persistable, Repeatable
     {
         foreach ($this->commentary as $idx => $current) {
             if ($current === $comm) {
-                unset($this->commentary[$idx]);
+                array_splice($this->commentary, $idx, 1);
                 break;
             }
         }
