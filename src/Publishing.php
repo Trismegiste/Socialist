@@ -136,4 +136,13 @@ abstract class Publishing extends Content implements Persistable, Repeatable
         return $this->repeatedCount;
     }
 
+    public function isLastCommenter(AuthorInterface $author)
+    {
+        if (count($this->commentary)) {
+            return $author->isEqual($this->commentary[0]->getAuthor());
+        }
+
+        return false;
+    }
+
 }

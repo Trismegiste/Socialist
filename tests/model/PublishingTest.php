@@ -129,4 +129,48 @@ class PublishingTest extends ContentTest
         $this->assertEquals(0, $this->sut->getRepeatedCount());
     }
 
+    public function testIsLastCommenterEmpty()
+    {
+        $this->assertEquals(0, $this->sut->getCommentaryCount());
+        $this->assertFalse($this->sut->isLastCommenter($this->getMock('Trismegiste\Socialist\AuthorInterface')));
+    }
+
+    public function testIsLastCommenterFalse()
+    {
+        $author = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $author->expects($this->once())
+                ->method('isEqual')
+                ->will($this->returnValue(false));
+
+        $comment = $this->getMockBuilder('Trismegiste\Socialist\Commentary')
+                ->disableOriginalConstructor()
+                ->setMethods(['getAuthor'])
+                ->getMock();
+        $comment->expects($this->once())
+                ->method('getAuthor')
+                ->will($this->returnValue($this->mockAuthorInterface));
+
+        $this->sut->attachCommentary($comment);
+        $this->assertFalse($this->sut->isLastCommenter($author));
+    }
+
+    public function testIsLastCommenterTrue()
+    {
+        $author = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $author->expects($this->once())
+                ->method('isEqual')
+                ->will($this->returnValue(true));
+
+        $comment = $this->getMockBuilder('Trismegiste\Socialist\Commentary')
+                ->disableOriginalConstructor()
+                ->setMethods(['getAuthor'])
+                ->getMock();
+        $comment->expects($this->once())
+                ->method('getAuthor')
+                ->will($this->returnValue($this->mockAuthorInterface));
+
+        $this->sut->attachCommentary($comment);
+        $this->assertTrue($this->sut->isLastCommenter($author));
+    }
+
 }
