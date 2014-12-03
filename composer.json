@@ -10,7 +10,7 @@
     "require": {
         "php": ">=5.4.3",
         "ext-mongo": ">=1.3.0",
-        "trismegiste/yuurei": "2.1.*"
+        "trismegiste/yuurei": "2.2.*"
     },
     "require-dev": {
         "trismegiste/dokudoki": "2.2.*@dev"
