@@ -9,7 +9,8 @@ Features :
 * 'Like/+1' feature on users and contents like facebook/google+
 * follower on users like twitter
 * stack of commentary on each content
-* content = { text , status , commentary , photo, video , event }
+* abuse/spam report
+* content = { text , status , commentary , photo, video , re-tweet }
 * fully extensible
 * KISS
 * SOLID
