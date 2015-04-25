@@ -59,4 +59,10 @@ class TaggableImplTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['déjà-vu', 'とうきょう'], $parsed);
     }
 
+    public function testSpecialCombo()
+    {
+        $parsed = $this->parseTag("#un ##dièze augmente #d'un #demi-ton");
+        $this->assertEquals(['dièze', 'demi-ton'], $parsed);
+    }
+
 }

@@ -13,7 +13,8 @@ trait TaggableImpl
 {
 
     /**
-     * Parse a string and returns all tags
+     * Parse a string and returns all tags.
+     * A tag has 3 char minimum
      *
      * @param string $str
      *
@@ -22,7 +23,7 @@ trait TaggableImpl
     protected function parseTag($str)
     {
         $match = [];
-        preg_match_all('/#([^\s^"^\'^#]+)/', $str, $match, PREG_PATTERN_ORDER);
+        preg_match_all('/#([^\s^"^\'^#]{3,})/', $str, $match, PREG_PATTERN_ORDER);
 
         return array_unique($match[1]);
     }
