@@ -17,9 +17,8 @@ interface AbusiveReport
      * Report a content as abusive content
      *
      * @param \Trismegiste\Socialist\AuthorInterface $author
-     * @param string $msg
      */
-    public function report(AuthorInterface $author, $msg = '');
+    public function report(AuthorInterface $author);
 
     /**
      * Cancel a report
