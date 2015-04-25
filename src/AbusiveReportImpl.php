@@ -13,10 +13,12 @@ trait AbusiveReportImpl
 {
 
     protected $abusive = [];
+    protected $abusiveCount = 0;
 
     public function report(AuthorInterface $author, $msg = '')
     {
         $this->abusive[$author->getNickname()] = $msg;
+        $this->abusiveCount = count($this->abusive);
     }
 
     public function isReportedBy(AuthorInterface $author)
@@ -27,6 +29,7 @@ trait AbusiveReportImpl
     public function cancelReport(AuthorInterface $author)
     {
         unset($this->abusive[$author->getNickname()]);
+        $this->abusiveCount = count($this->abusive);
     }
 
 }
