@@ -65,4 +65,9 @@ class TaggableImplTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['dièze', 'demi-ton'], $parsed);
     }
 
+    public function testCutSensitiveChar()
+    {
+        $this->assertEquals(['pon', 'wai'], $this->parseTag('#pon"pon #wai>waiwai'));
+    }
+
 }

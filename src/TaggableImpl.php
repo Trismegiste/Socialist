@@ -23,7 +23,7 @@ trait TaggableImpl
     protected function parseTag($str)
     {
         $match = [];
-        preg_match_all('/#([^\s^"^\'^#]{3,})/', $str, $match, PREG_PATTERN_ORDER);
+        preg_match_all('/#([^\s^"^\'^#^\>^\<]{3,})/', $str, $match, PREG_PATTERN_ORDER);
 
         return array_unique($match[1]);
     }
