@@ -53,4 +53,10 @@ class TaggableImplTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('waiwaiwai', $parsed);
     }
 
+    public function testSpecialChar()
+    {
+        $parsed = $this->parseTag('#déjà-vu #とうきょう');
+        $this->assertEquals(['déjà-vu', 'とうきょう'], $parsed);
+    }
+
 }
