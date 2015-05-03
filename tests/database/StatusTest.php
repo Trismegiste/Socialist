@@ -33,4 +33,10 @@ class StatusTest extends PublishingTestCase
         $this->assertEquals(7.000001, $doc->getLongitude());
     }
 
+    public function testGeoIndexingPossible()
+    {
+        $result = $this->collection->ensureIndex(['location' => "2dsphere"], ['sparse' => true]);
+        $this->assertEquals($result['numIndexesAfter'], 1 + $result['numIndexesBefore']);
+    }
+
 }

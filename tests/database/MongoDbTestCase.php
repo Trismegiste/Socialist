@@ -18,7 +18,7 @@ class MongoDbTestCase extends \PHPUnit_Framework_TestCase
     /** @var \Trismegiste\Yuurei\Persistence\RepositoryInterface */
     protected $repo;
 
-    /** @var MongoCollection */
+    /** @var \MongoCollection */
     protected $collection;
 
     private function createStage()
