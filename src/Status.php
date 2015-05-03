@@ -12,11 +12,12 @@ namespace Trismegiste\Socialist;
 class Status extends SmallTalk
 {
 
-    /** @var float */
-    protected $longitude;
+    const LONGITUD = 0;
+    const LATITUD = 1;
+    const GEOPROP = 'coordinates';
 
-    /** @var float */
-    protected $latitude;
+    /** @var geoJSON */
+    protected $location = ['type' => 'Point', self::GEOPROP => [null, null]];
 
     /** @var float */
     protected $zoomLevel;
@@ -28,7 +29,7 @@ class Status extends SmallTalk
      */
     public function setLongitude($lo)
     {
-        $this->longitude = (float) $lo;
+        $this->location[self::GEOPROP][self::LONGITUD] = (float) $lo;
     }
 
     /**
@@ -38,7 +39,7 @@ class Status extends SmallTalk
      */
     public function setLatitude($la)
     {
-        $this->latitude = (float) $la;
+        $this->location[self::GEOPROP][self::LATITUD] = (float) $la;
     }
 
     /**
@@ -48,7 +49,7 @@ class Status extends SmallTalk
      */
     public function getLatitude()
     {
-        return $this->latitude;
+        return $this->location[self::GEOPROP][self::LATITUD];
     }
 
     /**
@@ -58,7 +59,7 @@ class Status extends SmallTalk
      */
     public function getLongitude()
     {
-        return $this->longitude;
+        return $this->location[self::GEOPROP][self::LONGITUD];
     }
 
     /**
