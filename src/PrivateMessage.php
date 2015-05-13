@@ -17,7 +17,7 @@ class PrivateMessage implements Persistable
 
     use PersistableImpl;
 
-    protected $message;
+    protected $pmBody;
     protected $read = false;
 
     /** @var \DateTime */
@@ -66,7 +66,7 @@ class PrivateMessage implements Persistable
      */
     public function setMessage($str)
     {
-        $this->message = $str;
+        $this->pmBody = $str;
     }
 
     /**
@@ -76,7 +76,7 @@ class PrivateMessage implements Persistable
      */
     public function getMessage()
     {
-        return $this->message;
+        return $this->pmBody;
     }
 
     /**
@@ -99,7 +99,7 @@ class PrivateMessage implements Persistable
 
     /**
      * Returns the date when this message was sent
-     * 
+     *
      * @return \DateTime
      */
     public function getSentAt()
