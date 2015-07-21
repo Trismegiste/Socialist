@@ -23,6 +23,11 @@ class Picture extends SmallTalk
     protected $mimeType;
 
     /**
+     * @var int the picture size (optional) in bytes
+     */
+    protected $size = 0;
+
+    /**
      * set the storage key of this picture
      * For optimizing perf, this key must start with randomness
      * like md5($nickname . time()) . '-' . $filename
@@ -62,6 +67,16 @@ class Picture extends SmallTalk
     public function getMimeType()
     {
         return $this->mimeType;
+    }
+
+    public function setFileSize($s)
+    {
+        $this->size = $s;
+    }
+
+    public function getFileSize()
+    {
+        return $this->size;
     }
 
 }

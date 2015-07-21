@@ -42,4 +42,11 @@ class PictureTest extends PublishingTest
         $this->assertNotEquals('x-wing.png', $this->sut->getStorageKey());
     }
 
+    public function testSizeProperty()
+    {
+        $this->assertEquals(0, $this->sut->getFileSize());
+        $this->sut->setFileSize(1000);
+        $this->assertEquals(1000, $this->sut->getFileSize());
+    }
+
 }
