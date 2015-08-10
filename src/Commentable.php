@@ -48,4 +48,11 @@ interface Commentable
      * @return Commentary|null null if no commentary found
      */
     public function getCommentaryByUuid($uuid);
+
+    /**
+     * Set the cardinal limit for commentaries
+     *
+     * @param int|null $n the size of the capped collection or null === no limit
+     */
+    public function setCommentaryLimit($n);
 }

@@ -28,6 +28,12 @@ abstract class Publishing extends Content implements Persistable, Repeatable, Co
      */
     protected $commentary = [];
 
+    /**
+     * A limit for commentaries
+     * @var int|null number for the capped list or null if no limit
+     */
+    protected $cappComm = null;
+
     /** @var int */
     protected $repeatedCount = 0;
 
@@ -131,6 +137,11 @@ abstract class Publishing extends Content implements Persistable, Repeatable, Co
         }
 
         return false;
+    }
+
+    public function setCommentaryLimit($n)
+    {
+        $this->cappComm = $n;
     }
 
 }
