@@ -173,4 +173,32 @@ class PublishingTest extends ContentTest
         $this->assertTrue($this->sut->isLastCommenter($author));
     }
 
+    public function testCappedCollectionOfCommentaries()
+    {
+        $this->sut->setCommentaryLimit(3);
+
+        for ($k = 0; $k < 3; $k++) {
+            $comment = new \Trismegiste\Socialist\Commentary($this->mockAuthorInterface);
+            $comment->setMessage("msg$k");
+            $this->assertEquals($k, $this->sut->getCommentaryCount());
+            $this->sut->attachCommentary($comment);
+            $this->assertEquals($k + 1, $this->sut->getCommentaryCount());
+        }
+
+        $newComment = new \Trismegiste\Socialist\Commentary($this->mockAuthorInterface);
+        $newComment->setMessage("last");
+
+        $this->assertEquals(3, $this->sut->getCommentaryCount());
+        $this->sut->attachCommentary($newComment);
+        $this->assertEquals(3, $this->sut->getCommentaryCount());
+
+        /* @var $it \Iterator */
+        $it = $this->sut->getCommentaryIterator();
+        $first = $it->current();
+        $this->assertEquals($newComment, $first);
+        $it->next();
+        $nextOne = $it->current();
+        $this->assertEquals('msg2', $nextOne->getMessage());
+    }
+
 }

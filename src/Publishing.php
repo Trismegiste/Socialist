@@ -44,6 +44,11 @@ abstract class Publishing extends Content implements Persistable, Repeatable, Co
     {
         $comm->setUuid(new \MongoId());
         array_unshift($this->commentary, $comm);
+
+        // manage capped collection of commentaries :
+        if (!is_null($this->cappComm) && (count($this->commentary) > $this->cappComm)) {
+            array_splice($this->commentary, $this->cappComm - count($this->commentary));
+        }
     }
 
     /**
