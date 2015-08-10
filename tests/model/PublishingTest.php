@@ -175,9 +175,10 @@ class PublishingTest extends ContentTest
 
     public function testCappedCollectionOfCommentaries()
     {
-        $this->sut->setCommentaryLimit(3);
+        $limit = rand(4, 13);  // defensive testing against immortal mutant
+        $this->sut->setCommentaryLimit($limit);
 
-        for ($k = 0; $k < 3; $k++) {
+        for ($k = 0; $k < $limit; $k++) {
             $comment = new \Trismegiste\Socialist\Commentary($this->mockAuthorInterface);
             $comment->setMessage("msg$k");
             $this->assertEquals($k, $this->sut->getCommentaryCount());
@@ -188,9 +189,9 @@ class PublishingTest extends ContentTest
         $newComment = new \Trismegiste\Socialist\Commentary($this->mockAuthorInterface);
         $newComment->setMessage("last");
 
-        $this->assertEquals(3, $this->sut->getCommentaryCount());
+        $this->assertEquals($limit, $this->sut->getCommentaryCount());
         $this->sut->attachCommentary($newComment);
-        $this->assertEquals(3, $this->sut->getCommentaryCount());
+        $this->assertEquals($limit, $this->sut->getCommentaryCount());
 
         /* @var $it \Iterator */
         $it = $this->sut->getCommentaryIterator();
@@ -198,7 +199,29 @@ class PublishingTest extends ContentTest
         $this->assertEquals($newComment, $first);
         $it->next();
         $nextOne = $it->current();
-        $this->assertEquals('msg2', $nextOne->getMessage());
+        $this->assertEquals('msg' . ($limit - 1), $nextOne->getMessage());
+    }
+
+    public function testCappedCollectionAlreadyExisting()
+    {
+        $limit = rand(14, 27);  // defensive testing against immortal mutant
+        for ($k = 0; $k < $limit; $k++) {
+            $comment = new \Trismegiste\Socialist\Commentary($this->mockAuthorInterface);
+            $comment->setMessage("msg$k");
+            $this->sut->attachCommentary($comment);
+        }
+        $this->assertEquals($limit, $this->sut->getCommentaryCount());
+
+        $this->sut->setCommentaryLimit(3);
+        $this->assertEquals($limit, $this->sut->getCommentaryCount());
+        $newComment = new \Trismegiste\Socialist\Commentary($this->mockAuthorInterface);
+        $newComment->setMessage("last");
+        $this->sut->attachCommentary($newComment);
+        $this->assertEquals(3, $this->sut->getCommentaryCount());
+        $this->assertEquals('last', $this->sut
+                        ->getCommentaryIterator()
+                        ->current()
+                        ->getMessage());
     }
 
 }
