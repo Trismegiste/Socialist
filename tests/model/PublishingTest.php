@@ -224,4 +224,19 @@ class PublishingTest extends ContentTest
                         ->getMessage());
     }
 
+    public function testDisableCommentaries()
+    {
+        $this->sut->setCommentaryLimit(0);
+        $this->sut->attachCommentary($this->createCommentary());
+        $this->assertEquals(0, $this->sut->getCommentaryCount());
+        // these tests below are fixing the behavior of capped collection
+        $this->sut->setCommentaryLimit(1);
+        $this->sut->attachCommentary($this->createCommentary());
+        $this->assertEquals(1, $this->sut->getCommentaryCount());
+        $this->sut->setCommentaryLimit(0);
+        $this->assertEquals(1, $this->sut->getCommentaryCount()); // this is not bug, it's a feature (c)(tm)(r)
+        $this->sut->attachCommentary($this->createCommentary());
+        $this->assertEquals(0, $this->sut->getCommentaryCount());
+    }
+
 }
