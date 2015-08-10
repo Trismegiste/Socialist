@@ -17,7 +17,7 @@ use Trismegiste\Yuurei\Persistence\PersistableImpl;
  * It's designated as a "root-entity" in Yuurei persistence layer
  *
  */
-abstract class Publishing extends Content implements Persistable, Repeatable
+abstract class Publishing extends Content implements Persistable, Repeatable, Commentable
 {
 
     use PersistableImpl;
@@ -32,9 +32,7 @@ abstract class Publishing extends Content implements Persistable, Repeatable
     protected $repeatedCount = 0;
 
     /**
-     * Attach a commentary to this Published content
-     *
-     * @param \Trismegiste\Socialist\Commentary $comm
+     * @inheritdoc
      */
     public function attachCommentary(Commentary $comm)
     {
@@ -43,9 +41,7 @@ abstract class Publishing extends Content implements Persistable, Repeatable
     }
 
     /**
-     * Detach a commentary off this Published content
-     *
-     * @param \Trismegiste\Socialist\Commentary $comm
+     * @inheritdoc
      */
     public function detachCommentary(Commentary $comm)
     {
@@ -58,9 +54,7 @@ abstract class Publishing extends Content implements Persistable, Repeatable
     }
 
     /**
-     * Returns the counter for commmentaries embedded in this object
-     *
-     * @return int
+     * @inheritdoc
      */
     public function getCommentaryCount()
     {
@@ -68,9 +62,7 @@ abstract class Publishing extends Content implements Persistable, Repeatable
     }
 
     /**
-     * Returns a outer iterator on commmentaries for this object
-     *
-     * @return \ArrayIterator
+     * @inheritdoc
      */
     public function getCommentaryIterator()
     {
@@ -78,11 +70,7 @@ abstract class Publishing extends Content implements Persistable, Repeatable
     }
 
     /**
-     * Gets a commentary by its Unique Id
-     *
-     * @param string $uuid
-     *
-     * @return Commentary|null null if no commentary found
+     * @inheritdoc
      */
     public function getCommentaryByUuid($uuid)
     {
