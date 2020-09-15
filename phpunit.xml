@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="tests/bootstrap.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.0/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
          colors="true">
 
     <testsuites>
@@ -8,17 +10,14 @@
         </testsuite>
     </testsuites>
 
-
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
+    <coverage processUncoveredFiles="true">
+        <include>
             <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
+        </include>
+        <report>
+            <html outputDirectory="./doc/coverage" lowUpperBound="50" highLowerBound="90"/>
+        </report>
+    </coverage>
 
-    <logging>
-        <log type="coverage-html" target="doc/coverage" charset="UTF-8"
-             yui="true" highlight="false"
-             lowUpperBound="50" highLowerBound="90"/>
-    </logging>
 
 </phpunit>

@@ -8,11 +8,17 @@
         }
     },
     "require": {
-        "php": ">=5.4.3",
-        "ext-mongo": ">=1.3.0",
-        "trismegiste/yuurei": "~2.3"
+        "php": ">7.3",
+        "trismegiste/toolbox": "dev-master"
     },
     "require-dev": {
-        "trismegiste/dokudoki": "~2.3"
-    }
+        "phpunit/phpunit": "^9"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "~/Develop/toolbox"
+        }
+    ]
+
 }

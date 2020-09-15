@@ -32,4 +32,9 @@ trait AbusiveReportImpl
         $this->abusiveCount = count($this->abusive);
     }
 
+    public function getReportedCount(): int
+    {
+        return count($this->abusive);
+    }
+
 }

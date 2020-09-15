@@ -27,7 +27,7 @@ class UserTest extends FamousTestTemplate
         return $mock;
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->author = $this->createMockAuthor('kirk');
         parent::setUp();

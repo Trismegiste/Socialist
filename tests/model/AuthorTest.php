@@ -11,12 +11,12 @@ use Trismegiste\Socialist\Author;
 /**
  * AuthorTest tests Author
  */
-class AuthorTest extends \PHPUnit_Framework_TestCase
+class AuthorTest extends \PHPUnit\Framework\TestCase
 {
 
     protected $sut;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sut = new Author('spock');
     }

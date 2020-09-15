@@ -9,23 +9,23 @@ namespace tests\model;
 /**
  * FamousTestTemplate is a test template for any implementation of Famous
  */
-abstract class FamousTestTemplate extends \PHPUnit_Framework_TestCase
+abstract class FamousTestTemplate extends \PHPUnit\Framework\TestCase
 {
 
     /** @var Trismegiste\Socialist\Famous */
     protected $sut;
+
     /** @var \Trismegiste\Socialist\AuthorInterface */
     protected $fan;
 
     abstract protected function createSUT();
 
-    protected function setUp()
+    protected function setUp(): void
     {
-
-        $this->fan = $this->getMock("Trismegiste\Socialist\AuthorInterface");
+        $this->fan = $this->createMock(\Trismegiste\Socialist\AuthorInterface::class);
         $this->fan->expects($this->any())
-                ->method('getNickname')
-                ->will($this->returnValue('janice'));
+            ->method('getNickname')
+            ->will($this->returnValue('janice'));
 
         $this->sut = $this->createSUT();
     }

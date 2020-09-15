@@ -3,3 +3,4 @@
 /nbproject/
 /doc/coverage
 /doc/tech
+.phpunit.result.cache

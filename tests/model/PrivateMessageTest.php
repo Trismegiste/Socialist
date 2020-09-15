@@ -11,7 +11,7 @@ use Trismegiste\Socialist\PrivateMessage;
 /**
  * PrivateMessageTest tests PrivateMessage
  */
-class PrivateMessageTest extends \PHPUnit_Framework_TestCase
+class PrivateMessageTest extends \PHPUnit\Framework\TestCase
 {
 
     /** @var \Trismegiste\Socialist\PrivateMessage */
@@ -23,7 +23,7 @@ class PrivateMessageTest extends \PHPUnit_Framework_TestCase
     /** @var \Trismegiste\Socialist\AuthorInterface */
     protected $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sender = $this->getMock('Trismegiste\Socialist\AuthorInterface');
         $this->target = $this->getMock('Trismegiste\Socialist\AuthorInterface');

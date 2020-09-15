@@ -9,7 +9,7 @@ namespace tests\model;
 /**
  * AbusiveReportImplTest tests if interface and implementation are in sync
  */
-class AbusiveReportImplTest extends \PHPUnit_Framework_TestCase
+class AbusiveReportImplTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testSync()

@@ -9,7 +9,7 @@ namespace tests\model;
 /**
  * FamousImplTest tests if interface and implementation are in sync
  */
-class FamousImplTest extends \PHPUnit_Framework_TestCase
+class FamousImplTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testSync()

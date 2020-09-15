@@ -17,7 +17,7 @@ class RepeatTest extends PublishingTest
     protected $embedded;
     protected $otherAuthor;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->otherAuthor = $this->getMock('Trismegiste\Socialist\AuthorInterface');
 

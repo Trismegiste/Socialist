@@ -9,7 +9,7 @@ namespace tests\model;
 /**
  * FollowerImplTest tests if interface and implementation are in sync
  */
-class FollowerImplTest extends \PHPUnit_Framework_TestCase
+class FollowerImplTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testSync()

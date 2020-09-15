@@ -6,6 +6,8 @@
 
 namespace tests\model;
 
+use DateTime;
+use Trismegiste\Socialist\AuthorInterface;
 use Trismegiste\Socialist\Content;
 
 /**
@@ -16,12 +18,12 @@ class ContentTest extends FamousTestTemplate
 
     protected $mockAuthorInterface;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->mockAuthorInterface = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $this->mockAuthorInterface = $this->createMock(AuthorInterface::class);
         $this->mockAuthorInterface->expects($this->any())
-                ->method('getNickname')
-                ->will($this->returnValue('ncc1701'));
+            ->method('getNickname')
+            ->will($this->returnValue('ncc1701'));
 
         parent::setUp();
     }
@@ -33,16 +35,16 @@ class ContentTest extends FamousTestTemplate
 
     protected function createSUT()
     {
-        return $this->getMockBuilder('Trismegiste\Socialist\Content')
-                        ->setConstructorArgs([$this->mockAuthorInterface])
-                        ->setMethods(NULL)
-                        ->getMock();
+        return $this->getMockBuilder(Content::class)
+                ->setConstructorArgs([$this->mockAuthorInterface])
+                ->setMethods(NULL)
+                ->getMock();
     }
 
     public function testTimestamp()
     {
         $this->assertNotNull($this->sut->getLastEdited());
-        $newDate = new \DateTime('tomorrow 14:00');
+        $newDate = new DateTime('tomorrow 14:00');
         $this->sut->setLastEdited($newDate);
         $this->assertEquals($newDate, $this->sut->getLastEdited());
     }
@@ -55,16 +57,16 @@ class ContentTest extends FamousTestTemplate
 
     public function testReportAbusive()
     {
-        $reporter = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $reporter = $this->createMock(AuthorInterface::class);
         $this->sut->report($reporter);
-        $this->assertAttributeCount(1, 'abusive', $this->sut);
+        $this->assertEquals(1, $this->sut->getReportedCount());
         $this->sut->report($reporter);
-        $this->assertAttributeCount(1, 'abusive', $this->sut);
+        $this->assertEquals(1, $this->sut->getReportedCount());
 
         $this->assertTrue($this->sut->isReportedBy($reporter));
 
         $this->sut->cancelReport($reporter);
-        $this->assertAttributeCount(0, 'abusive', $this->sut);
+        $this->assertEquals(0, $this->sut->getReportedCount());
         $this->assertFalse($this->sut->isReportedBy($reporter));
     }
 
