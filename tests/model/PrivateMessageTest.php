@@ -25,8 +25,8 @@ class PrivateMessageTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        $this->sender = $this->getMock('Trismegiste\Socialist\AuthorInterface');
-        $this->target = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $this->sender = $this->createMock('Trismegiste\Socialist\AuthorInterface');
+        $this->target = $this->createMock('Trismegiste\Socialist\AuthorInterface');
         $this->sut = new PrivateMessage($this->sender, $this->target);
     }
 
@@ -49,12 +49,10 @@ class PrivateMessageTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('Engage !', $this->sut->getMessage());
     }
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testNoLoopEdge()
     {
-        $loop = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $this->expectException(\LogicException::class);
+        $loop = $this->createMock('Trismegiste\Socialist\AuthorInterface');
         new PrivateMessage($loop, $loop);
     }
 

@@ -6,16 +6,16 @@
 
 namespace Trismegiste\Socialist;
 
-use Trismegiste\Yuurei\Persistence\Persistable;
-use Trismegiste\Yuurei\Persistence\PersistableImpl;
+use Trismegiste\Toolbox\MongoDb\Root;
+use Trismegiste\Toolbox\MongoDb\RootImpl;
 
 /**
  * PrivateMessage is a private message from one author to another author
  */
-class PrivateMessage implements Persistable
+class PrivateMessage implements Root
 {
 
-    use PersistableImpl;
+    use RootImpl;
 
     protected $pmBody;
     protected $read = false;

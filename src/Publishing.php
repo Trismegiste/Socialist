@@ -6,21 +6,22 @@
 
 namespace Trismegiste\Socialist;
 
-use Trismegiste\Yuurei\Persistence\Persistable;
-use Trismegiste\Yuurei\Persistence\PersistableImpl;
+use MongoDB\BSON\ObjectId;
+use Trismegiste\Toolbox\MongoDb\Root;
+use Trismegiste\Toolbox\MongoDb\RootImpl;
 
 /**
  * Publishing is a Content with Commentary and Persistance in mongoDb
  *
  * Like User entity, this is a vertex in the social digraph.
  * It's a rich document in MongoDb
- * It's designated as a "root-entity" in Yuurei persistence layer
+ * It's designated as a "root-entity" in toolbox persistence layer
  *
  */
-abstract class Publishing extends Content implements Persistable, Repeatable, Commentable
+abstract class Publishing extends Content implements Root, Repeatable, Commentable
 {
 
-    use PersistableImpl;
+    use RootImpl;
 
     /**
      * A list of Commentary : the most recent first
@@ -42,7 +43,7 @@ abstract class Publishing extends Content implements Persistable, Repeatable, Co
      */
     public function attachCommentary(Commentary $comm)
     {
-        $comm->setUuid(new \MongoId());
+        $comm->setUuid(new ObjectId());
         array_unshift($this->commentary, $comm);
 
         // manage capped collection of commentaries :
@@ -124,7 +125,7 @@ abstract class Publishing extends Content implements Persistable, Repeatable, Co
      */
     public function getSourceId()
     {
-        return $this->getId();
+        return $this->getPk();
     }
 
     /**

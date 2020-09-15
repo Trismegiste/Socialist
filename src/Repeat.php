@@ -61,7 +61,7 @@ class Repeat extends Publishing
      */
     public function getSourceId()
     {
-        return is_null($this->embedded) ? null : $this->embedded->getId();
+        return is_null($this->embedded) ? null : $this->embedded->getPk();
     }
 
 }

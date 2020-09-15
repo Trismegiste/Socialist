@@ -19,12 +19,12 @@ class RepeatTest extends PublishingTest
 
     protected function setUp(): void
     {
-        $this->otherAuthor = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $this->otherAuthor = $this->createMock('Trismegiste\Socialist\AuthorInterface');
 
         $this->embedded = $this->getMockBuilder('Trismegiste\Socialist\Publishing')
-                ->setConstructorArgs([$this->otherAuthor])
-                ->setMethods(null)
-                ->getMock();
+            ->setConstructorArgs([$this->otherAuthor])
+            ->setMethods(null)
+            ->getMock();
         parent::setUp();
     }
 
@@ -43,20 +43,20 @@ class RepeatTest extends PublishingTest
     {
         $this->embedded->addFan($this->fan);
         $this->assertEquals(1, $this->embedded->getFanCount());
-        $reporter = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $reporter = $this->createMock('Trismegiste\Socialist\AuthorInterface');
         $this->embedded->report($reporter);
-        $this->assertAttributeCount(1, 'abusive', $this->embedded);
+        $this->assertEquals(1, $this->embedded->getReportedCount());
         $this->embedded->attachCommentary($this->message);
         $this->assertCount(1, $this->embedded->getCommentaryIterator());
 
         $this->sut->setEmbedded($this->embedded);
         // original does not change :
         $this->assertEquals(1, $this->embedded->getFanCount());
-        $this->assertAttributeCount(1, 'abusive', $this->embedded);
+        $this->assertEquals(1, $this->embedded->getReportedCount());
         $this->assertCount(1, $this->embedded->getCommentaryIterator());
         // embedded is cleaned :
         $this->assertEquals(0, $this->sut->getEmbedded()->getFanCount());
-        $this->assertAttributeCount(0, 'abusive', $this->sut->getEmbedded());
+        $this->assertEquals(0, $this->sut->getEmbedded()->getReportedCount());
         $this->assertCount(0, $this->sut->getEmbedded()->getCommentaryIterator());
     }
 
@@ -75,37 +75,33 @@ class RepeatTest extends PublishingTest
         $this->assertFalse($this->sut->isEditable());
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage repeat yourself
-     */
     public function testAuthorCannotRepeatHimself()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('repeat yourself');
         $this->otherAuthor->expects($this->any())
-                ->method('isEqual')
-                ->with($this->isInstanceOf('Trismegiste\Socialist\AuthorInterface'))
-                ->will($this->returnValue(true));
+            ->method('isEqual')
+            ->with($this->isInstanceOf('Trismegiste\Socialist\AuthorInterface'))
+            ->will($this->returnValue(true));
 
         $this->sut->setEmbedded($this->embedded);
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage repeat yourself
-     */
     public function testAuthorCannotRepeatARepeatFromOtherOfHimself()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('repeat yourself');
         // I'm equal to myself :
         $this->mockAuthorInterface->expects($this->any())
-                ->method('isEqual')
-                ->with($this->equalTo($this->mockAuthorInterface))
-                ->will($this->returnValue(true));
+            ->method('isEqual')
+            ->with($this->equalTo($this->mockAuthorInterface))
+            ->will($this->returnValue(true));
 
         // a content from me...
         $fromMe = $this->getMockBuilder('Trismegiste\Socialist\Publishing')
-                ->setConstructorArgs([$this->mockAuthorInterface])
-                ->setMethods(null)
-                ->getMock();
+            ->setConstructorArgs([$this->mockAuthorInterface])
+            ->setMethods(null)
+            ->getMock();
 
         // ... is retweeted by other...
         $retweetOfMe = new Repeat($this->otherAuthor);
@@ -122,10 +118,10 @@ class RepeatTest extends PublishingTest
 
     public function testGetSourceId()
     {
-        $pk = new \MongoId();
-        $pkEmbed = new \MongoId();
-        $this->embedded->setId($pkEmbed);
-        $this->sut->setId($pk);
+        $pk = new \MongoDB\BSON\ObjectId();
+        $pkEmbed = new \MongoDB\BSON\ObjectId();
+        $this->embedded->setPk($pkEmbed);
+        $this->sut->setPk($pk);
         $this->sut->setEmbedded($this->embedded);
         $this->assertEquals($pkEmbed, $this->sut->getSourceId());
         $this->assertNotEquals($pk, $this->sut->getSourceId());

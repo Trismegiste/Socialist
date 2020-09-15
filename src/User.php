@@ -6,8 +6,8 @@
 
 namespace Trismegiste\Socialist;
 
-use Trismegiste\Yuurei\Persistence\Persistable;
-use Trismegiste\Yuurei\Persistence\PersistableImpl;
+use Trismegiste\Toolbox\MongoDb\Root;
+use Trismegiste\Toolbox\MongoDb\RootImpl;
 
 /**
  * User is a user on the net and stored in MongoDb
@@ -22,11 +22,11 @@ use Trismegiste\Yuurei\Persistence\PersistableImpl;
  *  * The second is you can have a identified Author coming from outside the app
  *    (coming from other networks for example)
  */
-class User implements Famous, Persistable, Follower
+class User implements Famous, Root, Follower
 {
 
     use FamousImpl,
-        PersistableImpl,
+        RootImpl,
         FollowerImpl;
 
     protected $author;

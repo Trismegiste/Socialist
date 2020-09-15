@@ -19,7 +19,7 @@ class UserTest extends FamousTestTemplate
 
     private function createMockAuthor($nick)
     {
-        $mock = $this->getMock("Trismegiste\Socialist\AuthorInterface");
+        $mock = $this->createMock("Trismegiste\Socialist\AuthorInterface");
         $mock->expects($this->any())
                 ->method('getNickname')
                 ->will($this->returnValue($nick));

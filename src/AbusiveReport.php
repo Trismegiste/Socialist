@@ -35,4 +35,11 @@ interface AbusiveReport
      * @return boolean
      */
     public function isReportedBy(AuthorInterface $author);
+
+    /**
+     * Get the abuse reports count
+     * 
+     * @return int
+     */
+    public function getReportedCount(): int;
 }

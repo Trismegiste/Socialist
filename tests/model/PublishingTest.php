@@ -24,17 +24,17 @@ class PublishingTest extends ContentTest
     protected function createSUT()
     {
         return $this->getMockBuilder('Trismegiste\Socialist\Publishing')
-                        ->setConstructorArgs([$this->mockAuthorInterface])
-                        ->setMethods(NULL)
-                        ->getMock();
+                ->setConstructorArgs([$this->mockAuthorInterface])
+                ->setMethods(NULL)
+                ->getMock();
     }
 
     protected function createCommentary()
     {
         return $this->getMockBuilder('Trismegiste\Socialist\Commentary')
-                        ->disableOriginalConstructor()
-                        ->setMethods(['setUuid', 'getUuid'])
-                        ->getMock();
+                ->disableOriginalConstructor()
+                ->setMethods(['setUuid', 'getUuid'])
+                ->getMock();
     }
 
     public function testAttachCommentary()
@@ -71,12 +71,12 @@ class PublishingTest extends ContentTest
     public function testGetByUuid()
     {
         $this->message->expects($this->once())
-                ->method('setUuid')
-                ->with($this->isInstanceOf('MongoId'));
-        $uuid = new \MongoId();
+            ->method('setUuid')
+            ->with($this->isInstanceOf(\MongoDB\BSON\ObjectId::class));
+        $uuid = new \MongoDB\BSON\ObjectId();
         $this->message->expects($this->once())
-                ->method('getUuid')
-                ->will($this->returnValue($uuid));
+            ->method('getUuid')
+            ->will($this->returnValue($uuid));
 
         $this->sut->attachCommentary($this->message);
         $found = $this->sut->getCommentaryByUuid((string) $uuid);
@@ -87,12 +87,12 @@ class PublishingTest extends ContentTest
     public function testGetByUuidNotFound()
     {
         $this->message->expects($this->once())
-                ->method('getUuid')
-                ->will($this->returnValue(new \MongoId()));
+            ->method('getUuid')
+            ->will($this->returnValue(new \MongoDB\BSON\ObjectId()));
 
         $this->sut->attachCommentary($this->message);
 
-        $this->assertNull($this->sut->getCommentaryByUuid((string) (new \MongoId())));
+        $this->assertNull($this->sut->getCommentaryByUuid((string) (new \MongoDB\BSON\ObjectId())));
     }
 
     public function testRemoveSubEntities()
@@ -101,13 +101,13 @@ class PublishingTest extends ContentTest
         $this->sut->attachCommentary($this->message);
         $this->sut->report($this->fan);
 
-        $this->assertAttributeCount(1, 'abusive', $this->sut);
+        $this->assertEquals(1, $this->sut->getReportedCount());
         $this->assertEquals(1, $this->sut->getCommentaryCount());
         $this->assertEquals(1, $this->sut->getFanCount());
 
         $this->sut->removeSubEntities();
 
-        $this->assertAttributeCount(0, 'abusive', $this->sut);
+        $this->assertEquals(0, $this->sut->getReportedCount());
         $this->assertEquals(0, $this->sut->getCommentaryCount());
         $this->assertEquals(0, $this->sut->getFanCount());
     }
@@ -119,8 +119,8 @@ class PublishingTest extends ContentTest
 
     public function testGetSourceId()
     {
-        $pk = new \MongoId();
-        $this->sut->setId($pk);
+        $pk = new \MongoDB\BSON\ObjectId();
+        $this->sut->setPk($pk);
         $this->assertEquals($pk, $this->sut->getSourceId());
     }
 
@@ -132,23 +132,23 @@ class PublishingTest extends ContentTest
     public function testIsLastCommenterEmpty()
     {
         $this->assertEquals(0, $this->sut->getCommentaryCount());
-        $this->assertFalse($this->sut->isLastCommenter($this->getMock('Trismegiste\Socialist\AuthorInterface')));
+        $this->assertFalse($this->sut->isLastCommenter($this->createMock('Trismegiste\Socialist\AuthorInterface')));
     }
 
     public function testIsLastCommenterFalse()
     {
-        $author = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $author = $this->createMock('Trismegiste\Socialist\AuthorInterface');
         $author->expects($this->once())
-                ->method('isEqual')
-                ->will($this->returnValue(false));
+            ->method('isEqual')
+            ->will($this->returnValue(false));
 
         $comment = $this->getMockBuilder('Trismegiste\Socialist\Commentary')
-                ->disableOriginalConstructor()
-                ->setMethods(['getAuthor'])
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->setMethods(['getAuthor'])
+            ->getMock();
         $comment->expects($this->once())
-                ->method('getAuthor')
-                ->will($this->returnValue($this->mockAuthorInterface));
+            ->method('getAuthor')
+            ->will($this->returnValue($this->mockAuthorInterface));
 
         $this->sut->attachCommentary($comment);
         $this->assertFalse($this->sut->isLastCommenter($author));
@@ -156,18 +156,18 @@ class PublishingTest extends ContentTest
 
     public function testIsLastCommenterTrue()
     {
-        $author = $this->getMock('Trismegiste\Socialist\AuthorInterface');
+        $author = $this->createMock('Trismegiste\Socialist\AuthorInterface');
         $author->expects($this->once())
-                ->method('isEqual')
-                ->will($this->returnValue(true));
+            ->method('isEqual')
+            ->will($this->returnValue(true));
 
         $comment = $this->getMockBuilder('Trismegiste\Socialist\Commentary')
-                ->disableOriginalConstructor()
-                ->setMethods(['getAuthor'])
-                ->getMock();
+            ->disableOriginalConstructor()
+            ->setMethods(['getAuthor'])
+            ->getMock();
         $comment->expects($this->once())
-                ->method('getAuthor')
-                ->will($this->returnValue($this->mockAuthorInterface));
+            ->method('getAuthor')
+            ->will($this->returnValue($this->mockAuthorInterface));
 
         $this->sut->attachCommentary($comment);
         $this->assertTrue($this->sut->isLastCommenter($author));
@@ -219,9 +219,9 @@ class PublishingTest extends ContentTest
         $this->sut->attachCommentary($newComment);
         $this->assertEquals(3, $this->sut->getCommentaryCount());
         $this->assertEquals('last', $this->sut
-                        ->getCommentaryIterator()
-                        ->current()
-                        ->getMessage());
+                ->getCommentaryIterator()
+                ->current()
+                ->getMessage());
     }
 
     public function testDisableCommentaries()
