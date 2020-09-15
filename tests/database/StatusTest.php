@@ -35,8 +35,21 @@ class StatusTest extends PublishingTestCase
 
     public function testGeoIndexingPossible()
     {
-        $result = $this->collection->ensureIndex(['location' => "2dsphere"], ['sparse' => true]);
-        $this->assertEquals($result['numIndexesAfter'], 1 + $result['numIndexesBefore']);
+        $cursor = $this->manager->executeCommand(self::dbName,
+            new \MongoDB\Driver\Command([
+                'createIndexes' => self::collName,
+                'indexes' => [
+                    [
+                        'key' => ['location' => "2dsphere"],
+                        'name' => 'whocares',
+                        'sparse' => true
+                    ]
+                ]
+                ])
+        );
+        $response = $cursor->toArray()[0];
+        $this->assertEquals(1, $response->ok, "MongoDB server is not ready");
+        $this->assertEquals($response->numIndexesAfter, 1 + $response->numIndexesBefore);
     }
 
 }

@@ -17,6 +17,9 @@ use Trismegiste\Toolbox\MongoDb\RepositoryFactory;
 class MongoDbTestCase extends TestCase
 {
 
+    const dbName = 'trismegiste_socialist_test';
+    const collName = 'phpunit';
+
     /** @var Manager */
     protected $manager;
 
@@ -26,16 +29,13 @@ class MongoDbTestCase extends TestCase
     protected function setUp(): void
     {
         $this->manager = new Manager('mongodb://localhost:27017');
-        $factory = new RepositoryFactory($this->manager, 'trismegiste_socialist_test');
-        $this->repo = $factory->create('phpunit');
+        $factory = new RepositoryFactory($this->manager, self::dbName);
+        $this->repo = $factory->create(self::collName);
     }
 
     public function resetCollection()
     {
-        $bulk = new \MongoDB\Driver\BulkWrite();
-        $bulk->delete([]);
-        $result = $this->manager->executeBulkWrite('trismegiste_socialist_test.phunit', $bulk);
-        $this->assertTrue($result->isAcknowledged());
+        $this->manager->executeCommand(self::dbName, new \MongoDB\Driver\Command(['drop' => self::collName]));
     }
 
 }
