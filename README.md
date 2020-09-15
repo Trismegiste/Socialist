@@ -22,10 +22,9 @@ Here is a quick overview :
 ![Model](/doc/model.png)
 
 ## How 
-It relies on [Yuurei][1] for persistence. It is fully documented with phpDocumentor and
-fully tested (including functional tests with [dokudoki][2] external persistence layer)
+It relies on [trismegiste/toolbox][1] for persistence. It is fully documented with phpDocumentor and
+fully tested (including functional tests with trismegiste/toolbox)
 
 
-[1]: https://github.com/Trismegiste/Yuurei
-[2]: https://github.com/Trismegiste/DokudokiBundle
+[1]: https://github.com/Trismegiste/toolbox
 [3]: http://phpdoc.org/docs/latest/getting-started/installing.html#phar
