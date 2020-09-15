@@ -17,7 +17,7 @@ class UserTest extends MongoDbTestCase
 
     protected $sut;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->sut = new User(new Author("spock"));
@@ -29,10 +29,10 @@ class UserTest extends MongoDbTestCase
 
     public function testCreate()
     {
-        $this->collection->drop();
-        $this->repo->persist($this->sut);
-        $pk = $this->sut->getId();
-        $this->assertInstanceOf('MongoId', $pk);
+        $this->resetCollection();
+        $this->repo->save($this->sut);
+        $pk = $this->sut->getPk();
+        $this->assertInstanceOf(\MongoDB\BSON\ObjectId::class, $pk);
 
         return $pk;
     }
@@ -40,10 +40,10 @@ class UserTest extends MongoDbTestCase
     /**
      * @depends testCreate
      */
-    public function testRestore(\MongoId $pk)
+    public function testRestore(\MongoDB\BSON\ObjectId $pk)
     {
-        $restore = $this->repo->findByPk((string) $pk);
-        $this->sut->setId($pk);
+        $restore = $this->repo->load((string) $pk);
+        $this->sut->setPk($pk);
         $this->assertEquals($this->sut, $restore);
         $this->assertEquals(3, $restore->getFanCount());
 
@@ -56,45 +56,47 @@ class UserTest extends MongoDbTestCase
     public function testEdit(User $obj)
     {
         $obj->addFan(new Author('scotty'));
-        $this->repo->persist($obj);
+        $this->repo->save($obj);
+        $this->assertNotNull($obj->getPk());
 
-        return $obj->getId();
+        return $obj->getPk();
     }
 
     /**
      * @depends testEdit
      */
-    public function testRestoreEdited(\MongoId $pk)
+    public function testRestoreEdited(\MongoDB\BSON\ObjectId $pk)
     {
-        $restore = $this->repo->findByPk((string) $pk);
+        $restore = $this->repo->load((string) $pk);
         $this->assertEquals(4, $restore->getFanCount());
 
-        return $restore->getId();
+        return $restore->getPk();
     }
 
     /**
      * @depends testRestoreEdited
      */
-    public function testFollowed(\MongoId $pk)
+    public function testFollowed(\MongoDB\BSON\ObjectId $pk)
     {
-        $restore = $this->repo->findByPk((string) $pk);
+        $restore = $this->repo->load((string) $pk);
 
         // adding a follower
         $guy = new User(new Author("pike"));
-        $this->repo->persist($guy);
+        $this->repo->save($guy);
+        $this->assertNotNull($guy->getPk());
         $guy->follow($restore);
         $restore->follow($guy); // to make sure there is a cycle
-        $this->repo->persist($restore);
+        $this->repo->save($restore);
 
-        return $restore->getId();
+        return $restore->getPk();
     }
 
     /**
      * @depends testFollowed
      */
-    public function testFollowedPersistence(\MongoId $pk)
+    public function testFollowedPersistence(\MongoDB\BSON\ObjectId $pk)
     {
-        $restore = $this->repo->findByPk((string) $pk);
+        $restore = $this->repo->load((string) $pk);
 
         $this->assertEquals(1, $restore->getFollowingCount());
         $this->assertEquals(1, $restore->getFollowerCount());

@@ -6,11 +6,16 @@
 
 namespace Trismegiste\Socialist;
 
+use MongoDB\BSON\Persistable;
+use Trismegiste\Toolbox\MongoDb\PersistableImpl;
+
 /**
  * Commentary is a comment on one Publishing
  */
-class Commentary extends Content
+class Commentary extends Content implements Persistable
 {
+
+    use PersistableImpl;
 
     protected $message;
     protected $uuid;

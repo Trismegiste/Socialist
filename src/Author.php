@@ -9,8 +9,10 @@ namespace Trismegiste\Socialist;
 /**
  * Author is an implementation of AuthorInterface
  */
-class Author implements AuthorInterface
+class Author implements AuthorInterface, \MongoDB\BSON\Persistable
 {
+
+    use \Trismegiste\Toolbox\MongoDb\PersistableImpl;
 
     protected $nickname; // unique
     protected $avatar;

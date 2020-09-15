@@ -6,6 +6,7 @@
 
 namespace tests\database;
 
+use MongoDB\BSON\ObjectIdInterface;
 use Trismegiste\Socialist\Author;
 use Trismegiste\Socialist\Commentary;
 use Trismegiste\Socialist\Publishing;
@@ -51,7 +52,7 @@ abstract class PublishingTestCase extends MongoDbTestCase
         return $sut;
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->sut = $this->createDocument();
@@ -59,10 +60,10 @@ abstract class PublishingTestCase extends MongoDbTestCase
 
     public function testCreate()
     {
-        $this->collection->drop();
-        $this->repo->persist($this->sut);
-        $pk = $this->sut->getId();
-        $this->assertInstanceOf('MongoId', $pk);
+        $this->resetCollection();
+        $this->repo->save($this->sut);
+        $pk = $this->sut->getPk();
+        $this->assertInstanceOf(ObjectIdInterface::class, $pk);
 
         return $pk;
     }
@@ -74,17 +75,17 @@ abstract class PublishingTestCase extends MongoDbTestCase
 
         $comm = iterator_to_array($restore->getCommentaryIterator());
         // checking commentary and sort
-        $this->assertRegexp('#scotty#', $comm[0]->getMessage());
-        $this->assertRegexp('#kirk#', $comm[1]->getMessage());
-        $this->assertRegexp('#spock#', $comm[2]->getMessage());
+        $this->assertMatchesRegularExpression('#scotty#', $comm[0]->getMessage());
+        $this->assertMatchesRegularExpression('#kirk#', $comm[1]->getMessage());
+        $this->assertMatchesRegularExpression('#spock#', $comm[2]->getMessage());
     }
 
     /**
      * @depends testCreate
      */
-    public function testRestore(\MongoId $pk)
+    public function testRestore(ObjectIdInterface $pk)
     {
-        $restore = $this->repo->findByPk((string) $pk);
+        $restore = $this->repo->load((string) $pk);
 
         $this->assertChildren($restore);
         $this->assertRootEquals($restore);
@@ -97,20 +98,20 @@ abstract class PublishingTestCase extends MongoDbTestCase
      */
     public function testUpdate(Publishing $restore)
     {
-        $this->repo->persist($restore);
+        $this->repo->save($restore);
 
         $this->assertChildren($restore);
         $this->assertRootEquals($restore);
 
-        return $restore->getId();
+        return $restore->getPk();
     }
 
     /**
      * @depends testUpdate
      */
-    public function testRestoreAfterUpdate(\MongoId $pk)
+    public function testRestoreAfterUpdate(ObjectIdInterface $pk)
     {
-        $restore = $this->repo->findByPk((string) $pk);
+        $restore = $this->repo->load((string) $pk);
 
         $this->assertChildren($restore);
         $this->assertRootEquals($restore);

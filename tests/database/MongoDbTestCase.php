@@ -6,38 +6,36 @@
 
 namespace tests\database;
 
-use Trismegiste\Yuurei\Facade\Provider;
-use Trismegiste\DokudokiBundle\Transform\Delegation\Stage\WhiteMagic;
+use MongoDB\Driver\Manager;
+use PHPUnit\Framework\TestCase;
+use Trismegiste\Toolbox\MongoDb\Repository;
+use Trismegiste\Toolbox\MongoDb\RepositoryFactory;
 
 /**
- * MongoDb_TestCase is a temmplate for Persistence with Yuurei
+ * MongoDbTestCase is a base class for Persistence tests with toolbox
  */
-class MongoDbTestCase extends \PHPUnit_Framework_TestCase
+class MongoDbTestCase extends TestCase
 {
 
-    /** @var \Trismegiste\Yuurei\Persistence\RepositoryInterface */
+    /** @var Manager */
+    protected $manager;
+
+    /** @var Repository */
     protected $repo;
 
-    /** @var \MongoCollection */
-    protected $collection;
-
-    private function createStage()
+    protected function setUp(): void
     {
-        return new WhiteMagic([
-            'post' => 'Trismegiste\Socialist\SimplePost',
-            'user' => 'Trismegiste\Socialist\User',
-            'author' => 'Trismegiste\Socialist\Author',
-            'comm' => 'Trismegiste\Socialist\Commentary',
-            'status' => 'Trismegiste\Socialist\Status'
-        ]);
+        $this->manager = new Manager('mongodb://localhost:27017');
+        $factory = new RepositoryFactory($this->manager, 'trismegiste_socialist_test');
+        $this->repo = $factory->create('phpunit');
     }
 
-    protected function setUp()
+    public function resetCollection()
     {
-        $connector = new \tests\Yuurei\Persistence\ConnectorTest();
-        $this->collection = $connector->testCollection();
-        $facade = new Provider($this->collection);
-        $this->repo = $facade->createRepository($this->createStage());
+        $bulk = new \MongoDB\Driver\BulkWrite();
+        $bulk->delete([]);
+        $result = $this->manager->executeBulkWrite('trismegiste_socialist_test.phunit', $bulk);
+        $this->assertTrue($result->isAcknowledged());
     }
 
 }
